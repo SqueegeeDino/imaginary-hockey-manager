@@ -132,8 +132,9 @@ func _on_generate_list_pressed() -> void:
 		player_list_vbox.add_child(row)
 		
 func _on_player_hovered(p: PlayerProfile) -> void:
-	# Update your skater card panel labels here
-	label_name.text = p.display_name
+	if p == null:
+		return
+	%cardLabel_name.text = p.display_name
 	label_int.text = str(p.intelligence)
 	label_phys.text = str(p.physical)
 	label_def.text = str(p.defense)

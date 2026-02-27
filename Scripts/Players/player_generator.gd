@@ -76,16 +76,12 @@ func generate_profile(
 func generate_many(
 	rng: RandomNumberGenerator,
 	cfg: GeneratorConfig,
-	name_type: int,
 	count: int,
-	starting_id: int = 0
-	) -> Array[PlayerProfile]:
+	starting_id: int = 0,
+	name_type: int = 0
+) -> Array[PlayerProfile]:
 	var out: Array[PlayerProfile] = []
 	out.resize(count)
 	for idx: int in range(count):
-		out[idx] = generate_profile(
-			rng, 
-			cfg,
-			name_type,
-			starting_id + idx)
+		out[idx] = generate_profile(rng, cfg, starting_id + idx, name_type)
 	return out

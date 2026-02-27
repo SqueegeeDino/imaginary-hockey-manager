@@ -20,6 +20,12 @@ signal clicked(player: PlayerProfile)
 
 var player: PlayerProfile
 
+func _ready() -> void:
+	mouse_entered.connect(func():
+		if player != null:
+			hovered.emit(player)
+	)
+	
 func set_player(p: PlayerProfile, star_units: int) -> void:
 	player = p
 	label_name.text = p.display_name
@@ -49,10 +55,6 @@ func _set_stars(star_units: int) -> void:
 			stars[i].texture = star_half
 		else:
 			stars[i].texture = star_empty
-
-func _ready() -> void:
-	mouse_filter = Control.MOUSE_FILTER_STOP
-	mouse_entered.connect(func(): hovered.emit(player))
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
