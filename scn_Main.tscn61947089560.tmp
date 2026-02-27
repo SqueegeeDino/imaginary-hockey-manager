@@ -1,0 +1,175 @@
+[gd_scene load_steps=10 format=3 uid="uid://bsrslecrg07iu"]
+
+[ext_resource type="Texture2D" uid="uid://tjx6oyl62grw" path="res://Resources/Images/ChatGPT Image Feb 26, 2026, 04_18_43 PM.png" id="1_fhhi1"]
+[ext_resource type="Texture2D" uid="uid://d3eq5xa37gq65" path="res://Resources/Images/Icons/body-organ.png" id="2_14g1s"]
+[ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/new_theme.tres" id="2_tchar"]
+[ext_resource type="Texture2D" uid="uid://bxyaktc7ohkow" path="res://Resources/Images/Icons/heart-rate (1).png" id="3_tchar"]
+[ext_resource type="Texture2D" uid="uid://dhnq2yofl2m4d" path="res://Resources/Images/Icons/shield.png" id="4_6g6e6"]
+[ext_resource type="Texture2D" uid="uid://cpfnjlgk4m52c" path="res://Resources/Images/Icons/target.png" id="5_82gvg"]
+[ext_resource type="Script" uid="uid://b37rqynp83d1s" path="res://Scripts/Players/player_gen_panel.gd" id="7_6g6e6"]
+[ext_resource type="Script" uid="uid://blg3f01tbokk0" path="res://addons/randomnamesgenerator/createNames.gd" id="8_82gvg"]
+
+[sub_resource type="Theme" id="Theme_pelmd"]
+
+[node name="Node" type="Node"]
+
+[node name="Backdrop" type="Sprite2D" parent="."]
+scale = Vector2(1.2479979, 1.0879999)
+texture = ExtResource("1_fhhi1")
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("7_6g6e6")
+metadata/label_int = NodePath("panel_playerCard/VBoxContainer/GridContainer/HBox_Int/label_int")
+metadata/label_phys = NodePath("panel_playerCard/VBoxContainer/GridContainer/HBox_Phys/label_phys")
+metadata/label_def = NodePath("panel_playerCard/VBoxContainer/GridContainer/HBox_Def/label_defense")
+metadata/label_off = NodePath("panel_playerCard/VBoxContainer/GridContainer/HBox_Off/label_offense")
+
+[node name="panel_playerCard" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 960.0
+offset_top = 540.0
+offset_right = 1164.0
+offset_bottom = 658.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/panel_playerCard"]
+layout_mode = 2
+
+[node name="label_name" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelHeader"
+text = "Skater Name"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="HBox_Int" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "Mental stats"
+
+[node name="ico_brain" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Int"]
+layout_mode = 2
+texture = ExtResource("2_14g1s")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="label_int" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Int"]
+layout_mode = 2
+theme = ExtResource("2_tchar")
+theme_override_font_sizes/font_size = 32
+text = "100"
+
+[node name="HBox_Phys" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "Physical stats"
+
+[node name="ico_heart" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Phys"]
+layout_mode = 2
+texture = ExtResource("3_tchar")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="label_phys" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Phys"]
+layout_mode = 2
+theme = ExtResource("2_tchar")
+theme_override_font_sizes/font_size = 32
+text = "100"
+
+[node name="HBox_Def" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "Defense stat"
+
+[node name="ico_shield" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Def"]
+layout_mode = 2
+texture = ExtResource("4_6g6e6")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="label_defense" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Def"]
+layout_mode = 2
+theme = ExtResource("2_tchar")
+theme_override_font_sizes/font_size = 32
+text = "100"
+
+[node name="HBox_Off" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "Offense stat"
+
+[node name="ico_target" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Off"]
+layout_mode = 2
+texture = ExtResource("5_82gvg")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="label_offense" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Off"]
+layout_mode = 2
+theme = ExtResource("2_tchar")
+theme_override_font_sizes/font_size = 32
+text = "100"
+
+[node name="panelCont_genButtons" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+offset_right = 256.0
+offset_bottom = 198.0
+theme = ExtResource("2_tchar")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/panelCont_genButtons"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelHeader"
+text = "Generate Skater"
+horizontal_alignment = 1
+
+[node name="button_Normal" type="Button" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_pelmd")
+text = "Normal"
+
+[node name="button_Good" type="Button" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_pelmd")
+text = "Good"
+
+[node name="button_Bad" type="Button" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_pelmd")
+text = "Bad"
+
+[node name="button_500" type="Button" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme = SubResource("Theme_pelmd")
+text = "500"
+
+[node name="NameGenerator" type="Node" parent="CanvasLayer/Control"]
+script = ExtResource("8_82gvg")
+metadata/_custom_type_script = "uid://blg3f01tbokk0"
+
+[connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/button_Normal" to="CanvasLayer/Control" method="_on_generate_normal_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/button_Good" to="CanvasLayer/Control" method="_on_generate_good_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/button_Bad" to="CanvasLayer/Control" method="_on_generate_bad_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/button_500" to="CanvasLayer/Control" method="_on_generate_500_pressed"]
