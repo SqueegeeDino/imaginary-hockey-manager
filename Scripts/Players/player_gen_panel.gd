@@ -1,4 +1,5 @@
 extends Control
+class_name PlayerRow
 
 @export var nameType: OptionButton
 @export var skaterQuality: OptionButton
@@ -99,8 +100,6 @@ func stars_from_overall(overall: float) -> int:
 	if overall >= 20: return 2
 	return 1
 
-
-
 var players_cache: Array[PlayerProfile] = []
 
 func _clear_player_list() -> void:
@@ -117,6 +116,10 @@ func _on_generate_list_pressed() -> void:
 
 	players_cache = generator.generate_many(rng, cfg, count, next_id, name_index)
 	next_id += count
+	
+	print("First 3 generated names:")
+	for i in range(min(3, players_cache.size())):
+		print(i, ": ", players_cache[i].display_name)
 
 	# 2) build UI list
 	_clear_player_list()
@@ -126,10 +129,12 @@ func _on_generate_list_pressed() -> void:
 		var ovr := overall_from_player(p)
 		var s := stars_from_overall(ovr)
 
-		# (next step) hover updates the skater panel:
+		row.set_player(p, s)                 # <-- REQUIRED
 		row.hovered.connect(_on_player_hovered)
 
 		player_list_vbox.add_child(row)
+		
+		
 		
 func _on_player_hovered(p: PlayerProfile) -> void:
 	if p == null:

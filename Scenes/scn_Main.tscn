@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bxyaktc7ohkow" path="res://Resources/Images/Icons/heart-rate (1).png" id="5_f01qd"]
 [ext_resource type="Texture2D" uid="uid://dhnq2yofl2m4d" path="res://Resources/Images/Icons/shield.png" id="6_gelwn"]
 [ext_resource type="Texture2D" uid="uid://cpfnjlgk4m52c" path="res://Resources/Images/Icons/target.png" id="7_bryrl"]
-[ext_resource type="PackedScene" uid="uid://bbfsj4aw40xif" path="res://Scenes/_player_row.tscn" id="8_my6b3"]
+[ext_resource type="PackedScene" uid="uid://bbfsj4aw40xif" path="res://Scenes/scn_playerRow.tscn" id="8_my6b3"]
 
 [sub_resource type="Theme" id="Theme_pelmd"]
 

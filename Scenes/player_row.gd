@@ -1,6 +1,6 @@
 # res://UI/PlayerRow.gd
+class_name Player_Row
 extends Button
-class_name PlayerRow
 
 signal hovered(player: PlayerProfile)
 signal clicked(player: PlayerProfile)
@@ -9,7 +9,7 @@ signal clicked(player: PlayerProfile)
 @export var star_half: Texture2D
 @export var star_full: Texture2D
 
-@onready var label_name: Label = $HBoxContainer/label_name
+@onready var label_name: Label = $HBoxContainer/_playerLabel_name
 @onready var stars := [
 	$HBoxContainer/starContainer/icon_star1,
 	$HBoxContainer/starContainer/icon_star2,
@@ -18,18 +18,26 @@ signal clicked(player: PlayerProfile)
 	$HBoxContainer/starContainer/icon_star5
 ]
 
+
 var player: PlayerProfile
 
 func _ready() -> void:
+	mouse_filter = Control.MOUSE_FILTER_STOP
 	mouse_entered.connect(func():
 		if player != null:
 			hovered.emit(player)
 	)
 	
 func set_player(p: PlayerProfile, star_units: int) -> void:
+	if label_name == null:
+		push_error("PlayerRow: label_name is null. Check node path/case.")
+		return
 	player = p
 	label_name.text = p.display_name
 	_set_stars(star_units)
+	print("Row:", p.id, p.display_name)
+	label_name.text = p.display_name
+	print("Row label now:", label_name.text)
 
 func _set_stars(star_units: int) -> void:
 	# Clamp to valid range (0–10)
@@ -45,16 +53,6 @@ func _set_stars(star_units: int) -> void:
 		else:
 			stars[i].texture = star_empty
 	# Clamp to valid range (0–10)
-
-	for i in range(5):
-		var star_value: int = units - (i * 2)
-
-		if star_value >= 2:
-			stars[i].texture = star_full
-		elif star_value == 1:
-			stars[i].texture = star_half
-		else:
-			stars[i].texture = star_empty
 
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
