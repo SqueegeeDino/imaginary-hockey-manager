@@ -24,7 +24,7 @@ position = Vector2(960, 540)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("nameType", "skaterQuality")]
+[node name="Control" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("hideTimer", "nameType", "skaterQuality")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -32,6 +32,7 @@ offset_bottom = 40.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("2_adcb8")
+hideTimer = NodePath("Timer")
 nameType = NodePath("panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer/VBox_options/OptionButton_nameType")
 skaterQuality = NodePath("panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer/VBox_options/OptionButton_skaterQuality")
 player_row_scene = ExtResource("8_my6b3")
@@ -113,6 +114,9 @@ offset_bottom = 1051.0
 
 [node name="vBox_playerList" type="VBoxContainer" parent="CanvasLayer/Control/panel_playerList/ScrollContainer"]
 unique_name_in_owner = true
+layout_mode = 2
+
+[node name="_playerRow" parent="CanvasLayer/Control/panel_playerList/ScrollContainer/vBox_playerList" instance=ExtResource("8_my6b3")]
 layout_mode = 2
 
 [node name="panel_playerCard" type="PanelContainer" parent="CanvasLayer/Control"]
@@ -213,6 +217,11 @@ layout_mode = 2
 theme = ExtResource("4_4dhs5")
 theme_override_font_sizes/font_size = 32
 text = "100"
+
+[node name="Timer" type="Timer" parent="CanvasLayer/Control"]
+editor_description = "Timer for UI hover timout"
+wait_time = 0.2
+one_shot = true
 
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer/VBox_buttons/button_Normal" to="CanvasLayer/Control" method="_on_generate_skater_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer/VBox_buttons/button_500" to="CanvasLayer/Control" method="_on_generate_list_pressed"]

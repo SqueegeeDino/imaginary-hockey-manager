@@ -1,6 +1,7 @@
 extends Control
 class_name PlayerGen
 
+@export var hideTimer: Timer # Timer for delaying before hiding UI items
 @export var nameType: OptionButton
 @export var skaterQuality: OptionButton
 @export var player_row_scene: PackedScene  # assign PlayerRow.tscn in inspector
@@ -29,7 +30,13 @@ var bias: float = 0
 
 func _ready() -> void:
 	rng.randomize()
+	
+	# Hide player card at start, connect to timer
 	playerCard.visible = false
+	hideTimer.timeout.connect(_on_hideTimer_timeout)
+	# Panel stickiness
+	playerCard.card_hovered.connect(_on_card_hovered)
+	playerCard.card_unhovered.connect(_on_card_unhovered)
 
 	# Connect buttons (only needed if you haven't wired signals in the editor)
 	#button_nor.pressed.connect(_on_generate_normal_pressed)
@@ -113,10 +120,6 @@ func _on_generate_list_pressed() -> void:
 
 	players_cache = generator.generate_many(rng, cfg, count, next_id, name_index)
 	next_id += count
-	
-	print("First 3 generated names:")
-	for i in range(min(3, players_cache.size())):
-		print(i, ": ", players_cache[i].display_name)
 
 	# 2) build UI list
 	_clear_player_list()
@@ -135,11 +138,18 @@ func _on_generate_list_pressed() -> void:
 		
 		row.set_player(p,s)
 		row.hovered.connect(_on_player_hovered)
+		row.exited.connect(_on_player_exited)
+		
 		
 func _on_player_hovered(p: PlayerProfile) -> void:
 	if p == null:
 		return
+	
+	# Show element
+	hideTimer.stop() # Cancels any pending hide
 	playerCard.visible = true
+	
+	# Set values in element
 	label_name.text = p.display_name
 	label_int.text = str(p.intelligence)
 	label_phys.text = str(p.physical)
@@ -149,4 +159,14 @@ func _on_player_hovered(p: PlayerProfile) -> void:
 func _on_player_exited(p: PlayerProfile) -> void:
 	if p == null:
 		return
+	hideTimer.start()
+	
+func _on_card_hovered() -> void:
+	# Cancel pending hide while mouse is on the player card
+	hideTimer.stop()
+func _on_card_unhovered() -> void:
+	# Start hide timer if mouse leaves card
+	hideTimer.start()
+
+func _on_hideTimer_timeout() -> void:
 	playerCard.visible = false

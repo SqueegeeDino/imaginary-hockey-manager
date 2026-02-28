@@ -27,12 +27,10 @@ func _ready() -> void:
 	mouse_entered.connect(func():
 		if player != null:
 			hovered.emit(player)
-			print("Hovering")
 	)
 	mouse_exited.connect(func():
 		if player != null:
 			exited.emit(player)
-			print("Exited hover")
 	)
 	
 func set_player(p: PlayerProfile, star_units: int) -> void:
