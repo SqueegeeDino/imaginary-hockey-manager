@@ -36,6 +36,7 @@ custom_minimum_size = Vector2(450, 0)
 layout_mode = 2
 theme = ExtResource("1_je1ko")
 theme_type_variation = &"HeaderMedium"
+text = "Test Player"
 clip_text = true
 max_lines_visible = 1
 

@@ -6,6 +6,7 @@ class_name PlayerGen
 @export var player_row_scene: PackedScene  # assign PlayerRow.tscn in inspector
 # Drag these in via the Inspector OR use the NodePath version below.
 @onready var player_list_vbox: VBoxContainer = %vBox_playerList
+@onready var playerCard: PanelContainer = %panel_playerCard
 @onready var label_int: Label = %cardLabel_int
 @onready var label_phys: Label = %cardLabel_phys
 @onready var label_def: Label = %cardLabel_def
@@ -21,10 +22,14 @@ var rng := RandomNumberGenerator.new()
 var generator := PlayerGenerator.new()
 var last_player: PlayerProfile = null
 var next_id: int = 1
+
+var players_cache: Array[PlayerProfile] = []
+
 var bias: float = 0
 
 func _ready() -> void:
 	rng.randomize()
+	playerCard.visible = false
 
 	# Connect buttons (only needed if you haven't wired signals in the editor)
 	#button_nor.pressed.connect(_on_generate_normal_pressed)
@@ -75,13 +80,6 @@ func _on_generate_skater_pressed() -> void:
 	print("Bias Index:", q)
 	print("Bias:", bias)
 
-func _on_generate_500_pressed() -> void:
-	var cfg := _make_cfg(0.0)
-	var players := generator.generate_many(rng, cfg, 500, next_id)
-	next_id += 500
-	last_player = players[players.size() - 1]
-	_update_player_card(last_player)
-
 func overall_from_player(p: PlayerProfile) -> float:
 	# simple average of the 4 stats
 	return (p.intelligence + p.physical + p.defense + p.offense) / 4.0
@@ -100,11 +98,10 @@ func stars_from_overall(overall: float) -> int:
 	if overall >= 20: return 2
 	return 1
 
-var players_cache: Array[PlayerProfile] = []
-
 func _clear_player_list() -> void:
 	for child in player_list_vbox.get_children():
 		child.queue_free()
+	print("[Player Gen] Player list cleared")
 
 func _on_generate_list_pressed() -> void:
 	# 1) generate batch
@@ -125,21 +122,31 @@ func _on_generate_list_pressed() -> void:
 	_clear_player_list()
 
 	for p in players_cache:
-		var row := player_row_scene.instantiate() as PlayerRow
+		var row_node := player_row_scene.instantiate()
+		var row := row_node as PlayerRow
+		if row == null:
+			push_error("Instantiated row is not a PlayerRow. Script: %s" % [str(row_node.get_script())])
+			player_list_vbox.add_child(row_node)
+			continue
 		var ovr := overall_from_player(p)
 		var s := stars_from_overall(ovr)
 
-		# (next step) hover updates the skater panel:
-		row.set_player(p, s)                 # <-- REQUIRED
-		row.hovered.connect(_on_player_hovered)
-
 		player_list_vbox.add_child(row)
+		
+		row.set_player(p,s)
+		row.hovered.connect(_on_player_hovered)
 		
 func _on_player_hovered(p: PlayerProfile) -> void:
 	if p == null:
 		return
-	%cardLabel_name.text = p.display_name
+	playerCard.visible = true
+	label_name.text = p.display_name
 	label_int.text = str(p.intelligence)
 	label_phys.text = str(p.physical)
 	label_def.text = str(p.defense)
 	label_off.text = str(p.offense)
+
+func _on_player_exited(p: PlayerProfile) -> void:
+	if p == null:
+		return
+	playerCard.visible = false

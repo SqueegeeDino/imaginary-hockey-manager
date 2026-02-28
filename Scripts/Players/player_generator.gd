@@ -18,7 +18,7 @@ class GeneratorConfig:
 	var stat_min: int = 1
 	var stat_max: int = 99
 	var base_mean: float = 0.55
-	var spread: float = 0.18
+	var spread: float = 0.4
 	var bias: float = 0.0
 
 	# Typed dictionary values (still Variant at runtime, so we cast when reading)

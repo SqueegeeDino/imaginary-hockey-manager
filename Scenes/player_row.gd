@@ -1,8 +1,9 @@
-# res://UI/PlayerRow.gd
+# res://Scenes/PlayerRow.gd
 class_name PlayerRow
 extends Button
 
 signal hovered(player: PlayerProfile)
+signal exited(player: PlayerProfile)
 signal clicked(player: PlayerProfile)
 
 @export var star_empty: Texture2D
@@ -26,6 +27,12 @@ func _ready() -> void:
 	mouse_entered.connect(func():
 		if player != null:
 			hovered.emit(player)
+			print("Hovering")
+	)
+	mouse_exited.connect(func():
+		if player != null:
+			exited.emit(player)
+			print("Exited hover")
 	)
 	
 func set_player(p: PlayerProfile, star_units: int) -> void:
@@ -35,9 +42,7 @@ func set_player(p: PlayerProfile, star_units: int) -> void:
 	player = p
 	label_name.text = p.display_name
 	_set_stars(star_units)
-	print("Row:", p.id, p.display_name)
 	label_name.text = p.display_name
-	print("Row label now:", label_name.text)
 
 func _set_stars(star_units: int) -> void:
 	# Clamp to valid range (0–10)

@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://bsrslecrg07iu"]
+[gd_scene load_steps=11 format=3 uid="uid://bsrslecrg07iu"]
 
 [ext_resource type="Texture2D" uid="uid://tjx6oyl62grw" path="res://Resources/Images/ChatGPT Image Feb 26, 2026, 04_18_43 PM.png" id="1_mh2u2"]
 [ext_resource type="Script" uid="uid://b37rqynp83d1s" path="res://Scripts/Players/player_gen_panel.gd" id="2_adcb8"]
 [ext_resource type="Texture2D" uid="uid://d3eq5xa37gq65" path="res://Resources/Images/Icons/body-organ.png" id="3_e1v2k"]
 [ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/new_theme.tres" id="4_4dhs5"]
+[ext_resource type="Script" uid="uid://b726vvkpqcgts" path="res://Scripts/panel_player_card.gd" id="4_adcb8"]
 [ext_resource type="Texture2D" uid="uid://bxyaktc7ohkow" path="res://Resources/Images/Icons/heart-rate (1).png" id="5_f01qd"]
 [ext_resource type="Texture2D" uid="uid://dhnq2yofl2m4d" path="res://Resources/Images/Icons/shield.png" id="6_gelwn"]
 [ext_resource type="Texture2D" uid="uid://cpfnjlgk4m52c" path="res://Resources/Images/Icons/target.png" id="7_bryrl"]
@@ -34,102 +35,10 @@ script = ExtResource("2_adcb8")
 nameType = NodePath("panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer/VBox_options/OptionButton_nameType")
 skaterQuality = NodePath("panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer/VBox_options/OptionButton_skaterQuality")
 player_row_scene = ExtResource("8_my6b3")
-metadata/label_int = NodePath("panel_playerCard/VBoxContainer/GridContainer/HBox_Int/cardLabel_int")
-metadata/label_phys = NodePath("panel_playerCard/VBoxContainer/GridContainer/HBox_Phys/cardLabel_phys")
-metadata/label_def = NodePath("panel_playerCard/VBoxContainer/GridContainer/HBox_Def/cardLabel_def")
-metadata/label_off = NodePath("panel_playerCard/VBoxContainer/GridContainer/HBox_Off/cardLabel_off")
-
-[node name="panel_playerCard" type="PanelContainer" parent="CanvasLayer/Control"]
-layout_mode = 1
-anchors_preset = -1
-offset_left = 960.0
-offset_top = 540.0
-offset_right = 1164.0
-offset_bottom = 658.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/panel_playerCard"]
-layout_mode = 2
-
-[node name="cardLabel_name" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_type_variation = &"LabelHeader"
-text = "Skater Name"
-horizontal_alignment = 1
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer"]
-layout_mode = 2
-columns = 2
-
-[node name="HBox_Int" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer"]
-layout_mode = 2
-tooltip_text = "Mental stats"
-
-[node name="ico_brain" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Int"]
-layout_mode = 2
-texture = ExtResource("3_e1v2k")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="cardLabel_int" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Int"]
-unique_name_in_owner = true
-layout_mode = 2
-theme = ExtResource("4_4dhs5")
-theme_override_font_sizes/font_size = 32
-text = "100"
-
-[node name="HBox_Phys" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer"]
-layout_mode = 2
-tooltip_text = "Physical stats"
-
-[node name="ico_heart" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Phys"]
-layout_mode = 2
-texture = ExtResource("5_f01qd")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="cardLabel_phys" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Phys"]
-unique_name_in_owner = true
-layout_mode = 2
-theme = ExtResource("4_4dhs5")
-theme_override_font_sizes/font_size = 32
-text = "100"
-
-[node name="HBox_Def" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer"]
-layout_mode = 2
-tooltip_text = "Defense stat"
-
-[node name="ico_shield" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Def"]
-layout_mode = 2
-texture = ExtResource("6_gelwn")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="cardLabel_def" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Def"]
-unique_name_in_owner = true
-layout_mode = 2
-theme = ExtResource("4_4dhs5")
-theme_override_font_sizes/font_size = 32
-text = "100"
-
-[node name="HBox_Off" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer"]
-layout_mode = 2
-tooltip_text = "Offense stat"
-
-[node name="ico_target" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Off"]
-layout_mode = 2
-texture = ExtResource("7_bryrl")
-expand_mode = 2
-stretch_mode = 5
-
-[node name="cardLabel_off" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/GridContainer/HBox_Off"]
-unique_name_in_owner = true
-layout_mode = 2
-theme = ExtResource("4_4dhs5")
-theme_override_font_sizes/font_size = 32
-text = "100"
+metadata/label_int = NodePath("panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Int/cardLabel_int")
+metadata/label_phys = NodePath("panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Phys/cardLabel_phys")
+metadata/label_def = NodePath("panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Def/cardLabel_def")
+metadata/label_off = NodePath("panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Off/cardLabel_off")
 
 [node name="panelCont_genButtons" type="PanelContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
@@ -190,21 +99,120 @@ popup/item_1/id = 1
 popup/item_2/text = "Bad"
 popup/item_2/id = 2
 
-[node name="Panel" type="Panel" parent="CanvasLayer/Control"]
+[node name="panel_playerList" type="Panel" parent="CanvasLayer/Control"]
 layout_mode = 0
 offset_left = 1170.0
 offset_top = 10.0
 offset_right = 1902.0
-offset_bottom = 1104.0
+offset_bottom = 1060.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/Panel"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/panel_playerList"]
 layout_mode = 0
 offset_right = 734.0
-offset_bottom = 1092.0
+offset_bottom = 1051.0
 
-[node name="vBox_playerList" type="VBoxContainer" parent="CanvasLayer/Control/Panel/ScrollContainer"]
+[node name="vBox_playerList" type="VBoxContainer" parent="CanvasLayer/Control/panel_playerList/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="panel_playerCard" type="PanelContainer" parent="CanvasLayer/Control"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 914.0
+offset_top = 11.0
+offset_right = 1164.0
+offset_bottom = 129.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_adcb8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/panel_playerCard"]
+layout_mode = 2
+
+[node name="cardLabel_name" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelHeader"
+text = "Skater Name"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+columns = 2
+
+[node name="HBox_Int" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "Mental stats"
+
+[node name="ico_brain" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Int"]
+layout_mode = 2
+texture = ExtResource("3_e1v2k")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="cardLabel_int" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Int"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_4dhs5")
+theme_override_font_sizes/font_size = 32
+text = "100"
+
+[node name="HBox_Phys" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "Physical stats"
+
+[node name="ico_heart" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Phys"]
+layout_mode = 2
+texture = ExtResource("5_f01qd")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="cardLabel_phys" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Phys"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_4dhs5")
+theme_override_font_sizes/font_size = 32
+text = "100"
+
+[node name="HBox_Def" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "Defense stat"
+
+[node name="ico_shield" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Def"]
+layout_mode = 2
+texture = ExtResource("6_gelwn")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="cardLabel_def" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Def"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_4dhs5")
+theme_override_font_sizes/font_size = 32
+text = "100"
+
+[node name="HBox_Off" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+tooltip_text = "Offense stat"
+
+[node name="ico_target" type="TextureRect" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Off"]
+layout_mode = 2
+texture = ExtResource("7_bryrl")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="cardLabel_off" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Off"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_4dhs5")
+theme_override_font_sizes/font_size = 32
+text = "100"
 
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer/VBox_buttons/button_Normal" to="CanvasLayer/Control" method="_on_generate_skater_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer/VBox_buttons/button_500" to="CanvasLayer/Control" method="_on_generate_list_pressed"]
