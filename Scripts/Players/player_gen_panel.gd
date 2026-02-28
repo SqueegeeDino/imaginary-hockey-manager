@@ -1,5 +1,5 @@
 extends Control
-class_name PlayerRow
+class_name PlayerGen
 
 @export var nameType: OptionButton
 @export var skaterQuality: OptionButton
@@ -129,12 +129,11 @@ func _on_generate_list_pressed() -> void:
 		var ovr := overall_from_player(p)
 		var s := stars_from_overall(ovr)
 
+		# (next step) hover updates the skater panel:
 		row.set_player(p, s)                 # <-- REQUIRED
 		row.hovered.connect(_on_player_hovered)
 
 		player_list_vbox.add_child(row)
-		
-		
 		
 func _on_player_hovered(p: PlayerProfile) -> void:
 	if p == null:

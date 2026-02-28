@@ -1,5 +1,5 @@
 # res://UI/PlayerRow.gd
-class_name Player_Row
+class_name PlayerRow
 extends Button
 
 signal hovered(player: PlayerProfile)
