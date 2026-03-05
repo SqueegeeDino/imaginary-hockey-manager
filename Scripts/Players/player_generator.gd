@@ -14,6 +14,8 @@ func _pick_player_name(name_type: int) -> String:
 	var idx: int = clamp(name_type, 0, names.size() -1)
 	return names[idx] # "Sam's short" is a nice default for now
 
+## Player Information
+# Generator for stats
 class GeneratorConfig:
 	var stat_min: int = 1
 	var stat_max: int = 99
@@ -29,8 +31,35 @@ class GeneratorConfig:
 		"offense": 0.0,
 	}
 
+# Position mapping
+enum Position {
+	C = 1,
+	LW = 2,
+	RW  = 3,
+	LD = 4,
+	RD = 5,
+	G  = 6
+}
+static var position_names := {
+	Position.C:  "Center",
+	Position.LW: "Left Wing",
+	Position.RW: "Right Wing",
+	Position.LD: "Left Defense",
+	Position.RD: "Right Defense",
+	Position.G:  "Goalie"
+}
+
+static func get_positionName(pos:int) -> String:
+	return position_names.get(pos, "Unknown")
+
+## Helper functions
+# Clamp from 0 to 1
 func _clamp01(x: float) -> float:
 	return clamp(x, 0.0, 1.0)
+# Generate a random number between 2 argument values, then clamp it to the 1-99 range. Used for player stats
+static func _rngClamp99(xMin,xMax) -> float:
+	var rng = RandomNumberGenerator.new()
+	return clamp(rng.randf_range(xMin,xMax), 1, 99)
 
 func _rand_normal(rng: RandomNumberGenerator) -> float:
 	var u1: float = max(rng.randf(), 0.000001)
@@ -62,14 +91,29 @@ func generate_profile(
 	cfg: GeneratorConfig, 
 	id: int,
 	name_type: int,
+	role: int,
 ) -> PlayerProfile:
 	
 	var name: String = _pick_player_name(name_type)
+	var xMin: float = 1
+	var xMax: float = 10
 	
+	# Basic skater stats
 	var i: int = _sample_stat(rng, cfg, "intelligence")
 	var p: int = _sample_stat(rng, cfg, "physical")
 	var d: int = _sample_stat(rng, cfg, "defense")
-	var o: int = _sample_stat(rng, cfg, "offense")
+	var o: int = _sample_stat(rng, cfg, "offense") 
+	if role == 1: # If player is a forward adjust stats for offense and defense
+		d =- _rngClamp99(xMin,xMax)
+		o =+ _rngClamp99(xMin,xMax)
+	elif role == 2: # If player is a defender adjust stats
+		d =+ _rngClamp99(xMin,xMax)
+		o =- _rngClamp99(xMin,xMax)
+	else:
+		d = d
+		o = o
+	# Skater position
+	
 	
 	return PlayerProfile.new(id, name, i, p, d, o)
 
@@ -78,10 +122,11 @@ func generate_many(
 	cfg: GeneratorConfig,
 	count: int,
 	starting_id: int = 0,
-	name_type: int = 0
+	name_type: int = 0,
+	role: int = 0
 ) -> Array[PlayerProfile]:
 	var out: Array[PlayerProfile] = []
 	out.resize(count)
 	for idx: int in range(count):
-		out[idx] = generate_profile(rng, cfg, starting_id + idx, name_type)
+		out[idx] = generate_profile(rng, cfg, starting_id + idx, name_type, role)
 	return out
