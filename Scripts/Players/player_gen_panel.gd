@@ -1,9 +1,11 @@
 extends Control
 class_name PlayerGen
 
+# Public (editor) parameters
 @export var hideTimer: Timer # Timer for delaying before hiding UI items
 @export var nameType: OptionButton
 @export var skaterQuality: OptionButton
+@export var qualityVariance: HSlider
 @export var player_row_scene: PackedScene  # assign PlayerRow.tscn in inspector
 # Drag these in via the Inspector OR use the NodePath version below.
 @onready var player_list_vbox: VBoxContainer = %vBox_playerList
@@ -44,12 +46,12 @@ func _ready() -> void:
 	#button_bad.pressed.connect(_on_generate_bad_pressed)
 	#button_500.pressed.connect(_on_generate_500_pressed)
 
-func _make_cfg(bias: float) -> PlayerGenerator.GeneratorConfig:
+func _make_cfg(bias: float, mean: float, spread: float) -> PlayerGenerator.GeneratorConfig:
 	var cfg := PlayerGenerator.GeneratorConfig.new()
 	cfg.stat_min = 1
 	cfg.stat_max = 99
-	cfg.base_mean = 0.55
-	cfg.spread = 0.18
+	cfg.base_mean = mean
+	cfg.spread = spread
 	cfg.bias = bias
 	return cfg
 
@@ -60,8 +62,8 @@ func _update_player_card(p: PlayerProfile) -> void:
 	label_def.text = str(p.defense)
 	label_off.text = str(p.offense)
 
-func _generate_and_show(bias: float, name_index: int) -> void:
-	var cfg := _make_cfg(bias)
+func _generate_and_show(bias: float, mean:float, spread:float, name_index: int) -> void:
+	var cfg := _make_cfg(bias,mean,spread)
 	last_player = generator.generate_profile(
 		rng,
 		cfg,
@@ -74,7 +76,9 @@ func _generate_and_show(bias: float, name_index: int) -> void:
 func _on_generate_skater_pressed() -> void:
 	var nT = nameType.get_selected_id()
 	var q = skaterQuality.get_selected_id()
+	var qV = qualityVariance.value
 	
+	# Set player quality bies based on the option menu index
 	if q == 1:
 		bias = 0.8
 	elif q == 2:
@@ -82,7 +86,7 @@ func _on_generate_skater_pressed() -> void:
 	else:
 		bias = 0.0
 	
-	_generate_and_show(bias, nT)
+	_generate_and_show(bias, 0.55, qV, nT)
 	print("Name Type:", nT)
 	print("Bias Index:", q)
 	print("Bias:", bias)
@@ -110,19 +114,40 @@ func _clear_player_list() -> void:
 		child.queue_free()
 	print("[Player Gen] Player list cleared")
 
-func _on_generate_list_pressed() -> void:
+func _on_generate_list_(isClear: bool) -> void:
+	var nT = nameType.get_selected_id()
+	var q = skaterQuality.get_selected_id()
+	# Variance controls individual player stat variance
+	# Low variance means all their stats will be similar values, while high variance allows for a greater range
+	var qV = qualityVariance.value
+	
+	# Set player quality bias based on the option menu index
+	if q == 1:
+		bias = 0.9
+	elif q == 2:
+		bias = -0.9
+	else:
+		bias = 0.0
+	
+	print("--------------")
+	print("Name Type:", nT)
+	print("Bias Index:", q)
+	print("Bias:", bias)
+	print("Skill Variance: ", qV)
+	
 	# 1) generate batch
-	var cfg := _make_cfg(0.0) # your existing config maker
+	var cfg := _make_cfg(bias, 0.55, qV) # your existing config maker
 	var count := 500
 
 	# name_index 0 female full, 1 male full — pick one for now:
 	var name_index := 1
 
-	players_cache = generator.generate_many(rng, cfg, count, next_id, name_index)
+	players_cache = generator.generate_many(rng, cfg, count, next_id, nT)
 	next_id += count
 
 	# 2) build UI list
-	_clear_player_list()
+	if isClear: # Wipe the list if desired
+		_clear_player_list()
 
 	for p in players_cache:
 		var row_node := player_row_scene.instantiate()

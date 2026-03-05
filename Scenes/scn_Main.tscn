@@ -25,7 +25,7 @@ position = Vector2(960, 540)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("hideTimer", "nameType", "skaterQuality")]
+[node name="Control" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("hideTimer", "nameType", "skaterQuality", "qualityVariance")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -36,6 +36,7 @@ script = ExtResource("2_adcb8")
 hideTimer = NodePath("Timer")
 nameType = NodePath("panelCont_genButtons/MarginContainer/VBoxContainer/panCon_genOp/MarginContainer/Grid_GenOpt/Opt_nameType")
 skaterQuality = NodePath("panelCont_genButtons/MarginContainer/VBoxContainer/panCon_genOp/MarginContainer/Grid_GenOpt/Opt_quality")
+qualityVariance = NodePath("panelCont_genButtons/MarginContainer/VBoxContainer/panCon_genOp/MarginContainer/Grid_GenOpt/Opt_variance")
 player_row_scene = ExtResource("8_my6b3")
 metadata/label_int = NodePath("panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Int/cardLabel_int")
 metadata/label_phys = NodePath("panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Phys/cardLabel_phys")
@@ -67,11 +68,27 @@ theme_type_variation = &"LabelHeader"
 text = "Generate Skater"
 horizontal_alignment = 1
 
-[node name="button_500" type="Button" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="btn_listNew" type="Button" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Clear and generate new list with options"
 theme = SubResource("Theme_pelmd")
-text = "Gen
-List"
+text = "New List"
+
+[node name="btn_listAdd" type="Button" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Add a single item to existing list"
+text = "Add to List"
+
+[node name="btn_listClear" type="Button" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Clear current list"
+text = "Clear List"
 
 [node name="panCon_genOp" type="PanelContainer" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -103,21 +120,31 @@ text = "Quality"
 [node name="Opt_quality" type="OptionButton" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/panCon_genOp/MarginContainer/Grid_GenOpt"]
 layout_mode = 2
 size_flags_horizontal = 3
-item_count = 3
+item_count = 4
 popup/item_0/text = "Normal"
 popup/item_0/id = 0
 popup/item_1/text = "Good"
 popup/item_1/id = 1
 popup/item_2/text = "Bad"
 popup/item_2/id = 2
+popup/item_3/text = "Random"
+popup/item_3/id = 3
 
 [node name="Lbl_variance" type="Label" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/panCon_genOp/MarginContainer/Grid_GenOpt"]
 layout_mode = 2
+tooltip_text = "Individual player stat variance"
+mouse_filter = 1
 text = "Variance"
 
 [node name="Opt_variance" type="HSlider" parent="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/panCon_genOp/MarginContainer/Grid_GenOpt"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Individual player stat variance"
+min_value = 0.01
+max_value = 0.5
+step = 0.01
+value = 0.25
+tick_count = 5
 
 [node name="panel_playerList" type="Panel" parent="CanvasLayer/Control"]
 layout_mode = 0
@@ -242,4 +269,6 @@ editor_description = "Timer for UI hover timout"
 wait_time = 0.2
 one_shot = true
 
-[connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/button_500" to="CanvasLayer/Control" method="_on_generate_list_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer/btn_listNew" to="CanvasLayer/Control" method="_on_generate_list_" binds= [true]]
+[connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer/btn_listAdd" to="CanvasLayer/Control" method="_on_generate_list_" binds= [false]]
+[connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBoxContainer/btn_listClear" to="CanvasLayer/Control" method="_clear_player_list"]
