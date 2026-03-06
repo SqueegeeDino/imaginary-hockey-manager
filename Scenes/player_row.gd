@@ -1,6 +1,6 @@
 # res://Scenes/PlayerRow.gd
 class_name PlayerRow
-extends AspectRatioContainer
+extends Button
 
 signal hovered(player: PlayerProfile)
 signal exited(player: PlayerProfile)
