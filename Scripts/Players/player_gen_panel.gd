@@ -12,6 +12,8 @@ class_name PlayerGen
 @export var archetype1: LineEdit
 @export var archetype2: LineEdit
 @export var archetype3: LineEdit
+@export var radarGraph: RadarGraph
+const RadarGraph = preload("res://addons/godot_radar_graph/radar_graph.gd") # Preload the radar
 # Archetype settings
 @export var archetype1Settings: Vector3
 @export var archetype2Settings: Vector3
@@ -295,7 +297,10 @@ func _on_player_exited(p: PlayerProfile) -> void:
 
 func _on_player_clicked(p: PlayerProfile) -> void:
 	print("Clicked!", p.display_name)
-
+	radarGraph.set_item_value(0,p.intelligence)
+	radarGraph.set_item_value(1,p.physical)
+	radarGraph.set_item_value(2,p.offense)
+	radarGraph.set_item_value(3,p.defense)
 func _on_card_hovered() -> void:
 	# Cancel pending hide while mouse is on the player card
 	hideTimer.stop()

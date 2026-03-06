@@ -1,6 +1,6 @@
 # res://Scenes/PlayerRow.gd
 class_name PlayerRow
-extends Button
+extends AspectRatioContainer
 
 signal hovered(player: PlayerProfile)
 signal exited(player: PlayerProfile)
@@ -60,4 +60,3 @@ func _set_stars(star_units: int) -> void:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		clicked.emit(player)
-		print("Emit")

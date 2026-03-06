@@ -8,8 +8,8 @@
 
 [node name="_playerRow" type="Button"]
 custom_minimum_size = Vector2(750, 50)
-offset_right = 730.0
-offset_bottom = 42.0
+offset_right = 750.0
+offset_bottom = 50.0
 script = ExtResource("1_h5xoh")
 star_empty = ExtResource("2_cwuqo")
 star_half = ExtResource("3_da8v3")

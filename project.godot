@@ -25,7 +25,7 @@ window/per_pixel_transparency/allowed=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/randomnamesgenerator/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot_radar_graph/plugin.cfg", "res://addons/randomnamesgenerator/plugin.cfg")
 
 [gui]
 

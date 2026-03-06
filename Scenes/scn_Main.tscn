@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bsrslecrg07iu"]
+[gd_scene load_steps=15 format=3 uid="uid://bsrslecrg07iu"]
 
 [ext_resource type="Texture2D" uid="uid://tjx6oyl62grw" path="res://Resources/Images/ChatGPT Image Feb 26, 2026, 04_18_43 PM.png" id="1_mh2u2"]
 [ext_resource type="Script" uid="uid://b37rqynp83d1s" path="res://Scripts/Players/player_gen_panel.gd" id="2_adcb8"]
@@ -10,8 +10,13 @@
 [ext_resource type="Texture2D" uid="uid://dhnq2yofl2m4d" path="res://Resources/Images/Icons/shield.png" id="6_gelwn"]
 [ext_resource type="Texture2D" uid="uid://cpfnjlgk4m52c" path="res://Resources/Images/Icons/target.png" id="7_bryrl"]
 [ext_resource type="PackedScene" uid="uid://bbfsj4aw40xif" path="res://Scenes/scn_playerRow.tscn" id="8_my6b3"]
+[ext_resource type="Script" uid="uid://dj2hfa37ymon4" path="res://addons/godot_radar_graph/radar_graph.gd" id="11_4dhs5"]
 
 [sub_resource type="Theme" id="Theme_pelmd"]
+
+[sub_resource type="Theme" id="Theme_f01qd"]
+
+[sub_resource type="SystemFont" id="SystemFont_gelwn"]
 
 [node name="Node" type="Node"]
 
@@ -25,7 +30,7 @@ position = Vector2(960, 540)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("hideTimer", "nameType", "skaterQuality", "qualityVariance", "useArchetypes", "archetype1", "archetype2", "archetype3")]
+[node name="Control" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("hideTimer", "nameType", "skaterQuality", "qualityVariance", "useArchetypes", "archetype1", "archetype2", "archetype3", "radarGraph")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -41,6 +46,7 @@ useArchetypes = NodePath("panelCont_genButtons/MarginContainer/VBoxContainer/pan
 archetype1 = NodePath("panelCont_genButtons/MarginContainer/VBoxContainer/panelCon_superTypes/MarginContainer/VBoxContainer/GridContainer/LE_Superstar")
 archetype2 = NodePath("panelCont_genButtons/MarginContainer/VBoxContainer/panelCon_superTypes/MarginContainer/VBoxContainer/GridContainer/LE_Middle6")
 archetype3 = NodePath("panelCont_genButtons/MarginContainer/VBoxContainer/panelCon_superTypes/MarginContainer/VBoxContainer/GridContainer/LE_Fringe")
+radarGraph = NodePath("RadarGraph")
 archetype1Settings = Vector3(5, 0.55, 0.1)
 archetype2Settings = Vector3(0, 0.55, 0.2)
 archetype3Settings = Vector3(-1, 0.55, 0.3)
@@ -364,6 +370,63 @@ text = "100"
 editor_description = "Timer for UI hover timout"
 wait_time = 0.2
 one_shot = true
+
+[node name="RadarGraph" type="Control" parent="CanvasLayer/Control"]
+anchors_preset = 0
+offset_left = 370.0
+offset_top = 239.0
+offset_right = 1129.0
+offset_bottom = 847.0
+theme = SubResource("Theme_f01qd")
+script = ExtResource("11_4dhs5")
+key_count = 4
+radius = 250.0
+key_items = Array[Dictionary]([{
+"title": "Intelligence",
+"tooltip": "",
+"value": 45.0
+}, {
+"title": "Physical",
+"tooltip": "",
+"value": 75.0
+}, {
+"title": "Offense",
+"tooltip": "",
+"value": 60.0
+}, {
+"title": "Defense",
+"tooltip": "",
+"value": 15.0
+}])
+min_value = 1.0
+max_value = 102.0
+step = 1.0
+rounded = true
+font = SubResource("SystemFont_gelwn")
+font_size = 30
+font_outline_size = 4
+title_seperation = 12.0
+background_color = Color(0.09546431, 0.14278728, 0.18316945, 0.6)
+background_outline_color = Color(0.08935795, 0.11418825, 0.16966516, 1)
+background_outline_width = 10.0
+graph_color = Color(0.46746373, 0.9853514, 1.1460751, 0.6784314)
+graph_outline_color = Color(0.16867661, 0.7046226, 0.90224457, 1)
+graph_outline_width = 4.0
+show_guides = true
+guide_step = 20.0
+items/key_0/value = 45.0
+items/key_0/title = "Intelligence"
+items/key_0/tooltip = ""
+items/key_1/value = 75.0
+items/key_1/title = "Physical"
+items/key_1/tooltip = ""
+items/key_2/value = 60.0
+items/key_2/title = "Offense"
+items/key_2/tooltip = ""
+items/key_3/value = 15.0
+items/key_3/title = "Defense"
+items/key_3/tooltip = ""
+metadata/_custom_type_script = "uid://dj2hfa37ymon4"
 
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBox_listButtons/btn_listNew" to="CanvasLayer/Control" method="_on_generate_list_pressed" binds= [true]]
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBox_listButtons/btn_listAdd" to="CanvasLayer/Control" method="_on_generate_list_pressed" binds= [false]]
