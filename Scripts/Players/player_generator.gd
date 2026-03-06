@@ -99,21 +99,59 @@ func generate_profile(
 	var p: int = _sample_stat(rng, cfg, "physical")
 	var d: int = _sample_stat(rng, cfg, "defense")
 	var o: int = _sample_stat(rng, cfg, "offense") 
+	# Position stats
+	var posDict = {} # Empty dictionary created to hold the positions
+	var c: int = 1
+	var rw: int = 1
+	var lw: int = 1
+	var rd: int = 1
+	var ld: int = 1
 	
 	# Stat adjustment based on role (forward, defender)
 	if role == 1: # If player is a forward adjust stats for offense and defense
 		d = clamp((d - rng.randf_range(xMin,xMax)), 1, 99)
 		o = clamp((o + rng.randf_range(xMin,xMax)), 1, 99)
+		c = rng.randi_range(6,10)
+		rw = rng.randi_range(6,10)
+		lw = rng.randi_range(6,10)
+		rd = rng.randi_range(1,5)
+		ld = rng.randi_range(1,5)
 	elif role == 2: # If player is a defender adjust stats
 		d = clamp((d + rng.randf_range(xMin,xMax)), 1, 99)
 		o = clamp((o - rng.randf_range(xMin,xMax)), 1, 99)
+		c = rng.randi_range(1,5)
+		rw = rng.randi_range(1,5)
+		lw = rng.randi_range(1,5)
+		rd = rng.randi_range(6,10)
+		ld = rng.randi_range(6,10)
 	else:
 		d = d
 		o = o
+		c = rng.randi_range(2,8)
+		rw = rng.randi_range(2,8)
+		lw = rng.randi_range(2,8)
+		rd = rng.randi_range(2,8)
+		ld = rng.randi_range(2,2)
 	# Skater position
-	
-	
-	return PlayerProfile.new(id, name, i, p, d, o)
+	# Commit values to dict (this probably sucks)
+	posDict[1] = c
+	posDict[2] = rw
+	posDict[3] = lw
+	posDict[4] = rd
+	posDict[5] = ld
+	# Create starting points
+	var best_pos: int = 0
+	var best_posRating: int = 0
+	# Iterate through dictionary to find best position value
+	for pos in posDict.keys():
+		var r := int(posDict[pos])
+		if r > best_posRating:
+			best_posRating = r
+			best_pos = int(pos)
+	print("[player_generator - generate_profile] Name: ", name)
+	print("[player_generator - generate_profile] Role: ", role)
+	print("[player_generator - generate_profile] Position: ", best_pos)
+	return PlayerProfile.new(id, name, i, p, d, o, role, best_pos)
 
 func generate_many(
 	rng: RandomNumberGenerator,

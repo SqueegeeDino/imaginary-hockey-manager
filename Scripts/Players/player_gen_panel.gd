@@ -26,6 +26,8 @@ class_name PlayerGen
 @onready var label_def: Label = %cardLabel_def
 @onready var label_off: Label = %cardLabel_off
 @onready var label_name: Label = %cardLabel_name
+@onready var label_role: Label = %cardLabel_role
+@onready var label_pos: Label = %cardLabel_position
 
 #@onready var button_nor: Button = %button_Nor
 #@onready var button_goo: Button = %button_Goo
@@ -265,6 +267,11 @@ func _on_generate_list_superType(
 
 # Hovering controls
 func _on_player_hovered(p: PlayerProfile) -> void:
+	print("========")
+	print("Hovered")
+	print(p.display_name)
+	print(p.role)
+	print(p.bestPos)
 	if p == null:
 		return
 	
@@ -278,6 +285,8 @@ func _on_player_hovered(p: PlayerProfile) -> void:
 	label_phys.text = str(p.physical)
 	label_def.text = str(p.defense)
 	label_off.text = str(p.offense)
+	label_role.text = str(p.role)
+	label_pos.text = str(p.bestPos)
 
 func _on_player_exited(p: PlayerProfile) -> void:
 	if p == null:

@@ -10,13 +10,18 @@ var physical: int
 var defense: int
 var offense: int
 
-func _init(_id: int, _name: String, i: int, p: int, d: int, o: int) -> void:
+var role: int
+var bestPos: int
+
+func _init(_id: int, _name: String, i: int, p: int, d: int, o: int, r: int, pos: int) -> void:
 	id = _id
 	display_name = _name
 	intelligence = i
 	physical = p
 	defense = d
 	offense = o
+	role = r
+	bestPos = pos
 
 func to_dict() -> Dictionary:
 	return {
@@ -26,4 +31,6 @@ func to_dict() -> Dictionary:
 		"physical": physical,
 		"defense": defense,
 		"offense": offense,
+		"role": role,
+		"best position": bestPos,
 	}
