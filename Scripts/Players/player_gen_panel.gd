@@ -259,14 +259,24 @@ func _on_generate_list_superType(
 		row.clicked_right.connect(_on_player_right_clicked)
 
 ## Interface Controls
+# Used for closing menus when clicked outside of the menu. Currently only tied to the context menu
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.pressed:
+		if event.button_index == MOUSE_BUTTON_LEFT or event.button_index == MOUSE_BUTTON_RIGHT:
+			if active_context_menu != null and is_instance_valid(active_context_menu):
+				active_context_menu.queue_free()
+				active_context_menu = null
 # Hovering controls
 func _on_player_hovered(p: PlayerProfile) -> void:
 	if p == null:
 		return
 	
+	playerCard.moveable(true)
+	await get_tree().process_frame
 	# Show element
 	hideTimer.stop() # Cancels any pending hide
 	playerCard.visible = true
+	playerCard.moveable(false)
 	
 	# Set values in element
 	label_name.text = p.display_name
@@ -288,6 +298,19 @@ func _on_player_left_clicked(p: PlayerProfile) -> void:
 	radarGraph.set_item_value(2,p.offense)
 	radarGraph.set_item_value(3,p.defense)
 
+	# Player Card Handling
+func _on_card_hovered() -> void:
+	# Cancel pending hide while mouse is on the player card
+	hideTimer.stop()
+func _on_card_unhovered() -> void:
+	# Start hide timer if mouse leaves card
+	hideTimer.start()
+
+func _on_hideTimer_timeout() -> void:
+	playerCard.visible = false
+	playerCard.moveable(true)
+
+
 ## Interacting with player list
 # Variables
 var active_context_menu: PlayerContextMenu = null # Create a null holding variable for active context menu checking
@@ -295,11 +318,9 @@ var active_context_menu: PlayerContextMenu = null # Create a null holding variab
 func _clamp_menu_to_window(menu: Control, click_pos: Vector2) -> Vector2:
 	var window_size := get_window().size
 	var menu_size := menu.size
-	print("[ Player Gen Panel - _clamp_menu] Menu Pos: ", menu.position)
 	
 	var x: float = clamp(click_pos.x, 0.0, window_size.x - menu_size.x)
 	var y: float = clamp(click_pos.y, 0.0, window_size.y - menu_size.y)
-	print("[Player Gen Panel - _clamp_menu] Vector2: ", x, y)
 	return Vector2(x,y)
 
 func _on_player_right_clicked(p: PlayerProfile, click_pos: Vector2) -> void:
@@ -321,16 +342,6 @@ func _on_player_right_clicked(p: PlayerProfile, click_pos: Vector2) -> void:
 	menu.show_more_info.connect(_on_menu_show_more_info)
 
 	active_context_menu = menu
-func _on_card_hovered() -> void:
-	# Cancel pending hide while mouse is on the player card
-	hideTimer.stop()
-func _on_card_unhovered() -> void:
-	# Start hide timer if mouse leaves card
-	hideTimer.start()
-
-func _on_hideTimer_timeout() -> void:
-	playerCard.visible = false
-
 ## Context menu actions
 func _on_menu_add_to_team(p: PlayerProfile) -> void:
 	print("Add to team:", p.display_name)

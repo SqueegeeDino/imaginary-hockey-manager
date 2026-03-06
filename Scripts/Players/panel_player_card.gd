@@ -8,6 +8,7 @@ signal card_unhovered
 @onready var clamp_max: int = window_size.y - (panel_size + 10) # Set the max clamping dimensions by simply subtracting the panel size plus a buffer range, from the window size
 
 var _mouse_over_card: bool = false
+var _card_moveable: bool = true
 
 func _ready():
 	set_process_input(true) # Allow the node to read input events (moving the mouse)
@@ -26,6 +27,9 @@ func _input(event):
 	if _mouse_over_card: # If mouse is currently hovering on the card, don't move it around
 		return
 	# When the mouse moves, move the UI element up and down
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and _card_moveable:
 		var new_position: float = event.position.y - 50
 		position.y = clamp(new_position, 10, clamp_max)
+
+func moveable(move: bool):
+	_card_moveable = move
