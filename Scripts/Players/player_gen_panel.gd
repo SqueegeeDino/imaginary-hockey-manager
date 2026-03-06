@@ -20,6 +20,7 @@ const RadarGraph = preload("res://addons/godot_radar_graph/radar_graph.gd") # Pr
 @export var archetype3Settings: Vector3
 # Player row scene prefab
 @export var player_row_scene: PackedScene  # assign PlayerRow.tscn in inspector
+@export var player_context_menu: PackedScene # Context menu prefab
 # Drag these in via the Inspector OR use the NodePath version below.
 @onready var player_list_vbox: VBoxContainer = %vBox_playerList
 @onready var playerCard: PanelContainer = %panel_playerCard
@@ -63,9 +64,6 @@ func _ready() -> void:
 
 func _make_cfg(bias: float, mean: float, spread: float) -> PlayerGenerator.GeneratorConfig:
 	var cfg := PlayerGenerator.GeneratorConfig.new()
-	print("[_make_cfg] Bias: ", bias)
-	print("[_make_cfg] Variance: ", spread)
-	print("[_make_cfg] Mean: ", mean)
 	cfg.stat_min = 1
 	cfg.stat_max = 99
 	cfg.base_mean = mean
@@ -131,13 +129,11 @@ func stars_from_overall(overall: float) -> int:
 func _clear_player_list() -> void:
 	for child in player_list_vbox.get_children():
 		child.queue_free()
-	print("[Player Gen] Player list cleared")
 
 ## List generation button signal
 func _on_generate_list_pressed(
 	isClear: bool,
 	) -> void:
-	print("==== Button pressed ====")
 	var sT = useArchetypes.button_pressed # Check for superType check button
 	var nT = nameType.get_index() # Get nameType dropdown index value
 	# Execute correct function based on check button
@@ -150,19 +146,16 @@ func _on_generate_list_pressed(
 		var sV1 = archetype1Settings.z
 		var qtyArc1 = archetype1.text
 		_on_generate_list_superType(isClear, qtyArc1, nT, qB1, qM1, sV1)
-		print("Generated Arc 1: ", qtyArc1)
 		var qB2 = archetype2Settings.x
 		var qM2 = archetype2Settings.y
 		var sV2 = archetype2Settings.z
 		var qtyArc2 = archetype2.text
 		_on_generate_list_superType(isClear, qtyArc2, nT, qB2, qM2, sV2)
-		print("Generated Arc 2: ", qtyArc2)
 		var qB3 = archetype3Settings.x
 		var qM3 = archetype3Settings.y
 		var sV3 = archetype3Settings.z
 		var qtyArc3 = archetype3.text
 		_on_generate_list_superType(isClear, qtyArc3, nT, qB3, qM3, sV3)
-		print("Generated Arc 3: ", qtyArc3)
 	else:
 		print("No supertypes")
 		_on_generate_list_(isClear)
@@ -217,9 +210,9 @@ func _on_generate_list_(isClear: bool) -> void:
 		player_list_vbox.add_child(row)
 		
 		row.set_player(p,s)
-		#row.hovered.connect(_on_player_hovered)
+		row.hovered.connect(_on_player_hovered)
 		row.exited.connect(_on_player_exited)
-		row.clicked.connect(_on_player_clicked)
+		row.clicked.connect(_on_player_left_clicked)
 
 ## List generator using superTypes (superstar, middle six player, bottom 6 player, etc.)
 # More or less a version of _on_generate_list_ that allows for passing as much informaiton through
@@ -232,13 +225,6 @@ func _on_generate_list_superType(
 	qualityMean: float = 0.55,
 	statVariance: float = 0.2
 	) -> void:
-	
-	print("--------------/ Generating Supertype List")
-	print("Quantity: ", qtyStr)
-	print("Name Type:", nameGenType)
-	print("Bias:", qualityBias)
-	print("Mean: ", qualityMean)
-	print("Stat Variance: ", statVariance)
 	
 	# 1) generate batch
 	var cfg := _make_cfg(qualityBias, qualityMean, statVariance) # your existing config maker
@@ -269,7 +255,8 @@ func _on_generate_list_superType(
 		row.set_player(p,s)
 		row.hovered.connect(_on_player_hovered)
 		row.exited.connect(_on_player_exited)
-		row.clicked.connect(_on_player_clicked)
+		row.clicked_left.connect(_on_player_left_clicked)
+		row.clicked_right.connect(_on_player_right_clicked)
 
 ## Interface Controls
 # Hovering controls
@@ -295,12 +282,45 @@ func _on_player_exited(p: PlayerProfile) -> void:
 		return
 	hideTimer.start()
 
-func _on_player_clicked(p: PlayerProfile) -> void:
-	print("Clicked!", p.display_name)
+func _on_player_left_clicked(p: PlayerProfile) -> void:
 	radarGraph.set_item_value(0,p.intelligence)
 	radarGraph.set_item_value(1,p.physical)
 	radarGraph.set_item_value(2,p.offense)
 	radarGraph.set_item_value(3,p.defense)
+
+## Interacting with player list
+# Variables
+var active_context_menu: PlayerContextMenu = null # Create a null holding variable for active context menu checking
+# Functions
+func _clamp_menu_to_window(menu: Control, click_pos: Vector2) -> Vector2:
+	var window_size := get_window().size
+	var menu_size := menu.size
+	print("[ Player Gen Panel - _clamp_menu] Menu Pos: ", menu.position)
+	
+	var x: float = clamp(click_pos.x, 0.0, window_size.x - menu_size.x)
+	var y: float = clamp(click_pos.y, 0.0, window_size.y - menu_size.y)
+	print("[Player Gen Panel - _clamp_menu] Vector2: ", x, y)
+	return Vector2(x,y)
+
+func _on_player_right_clicked(p: PlayerProfile, click_pos: Vector2) -> void:
+	# Close any existing menu first
+	if active_context_menu != null and is_instance_valid(active_context_menu):
+		active_context_menu.queue_free()
+		active_context_menu = null
+
+	var menu := player_context_menu.instantiate() as PlayerContextMenu
+	add_child(menu)
+
+	menu.setup(p)
+	
+	await get_tree().process_frame
+	menu.position = _clamp_menu_to_window(menu, click_pos)
+
+	menu.add_to_team.connect(_on_menu_add_to_team)
+	menu.remove_from_team.connect(_on_menu_remove_from_team)
+	menu.show_more_info.connect(_on_menu_show_more_info)
+
+	active_context_menu = menu
 func _on_card_hovered() -> void:
 	# Cancel pending hide while mouse is on the player card
 	hideTimer.stop()
@@ -310,3 +330,16 @@ func _on_card_unhovered() -> void:
 
 func _on_hideTimer_timeout() -> void:
 	playerCard.visible = false
+
+## Context menu actions
+func _on_menu_add_to_team(p: PlayerProfile) -> void:
+	print("Add to team:", p.display_name)
+	# Later: move player to team UI area
+
+func _on_menu_remove_from_team(p: PlayerProfile) -> void:
+	print("Remove from team:", p.display_name)
+	# Later: remove from team UI area
+
+func _on_menu_show_more_info(p: PlayerProfile) -> void:
+	print("Show more info:", p.display_name)
+	# Later: open fuller player details panel

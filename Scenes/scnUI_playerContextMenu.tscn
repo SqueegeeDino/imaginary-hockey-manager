@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://ettjycp5sow2"]
+
+[ext_resource type="Script" uid="uid://bn2jjmbw2hj1r" path="res://Scripts/Players/player_context_menu.gd" id="1_lvcqu"]
+[ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/Theme/new_theme.tres" id="1_m5u3v"]
+
+[node name="UI_playerContextMenu" type="PanelContainer"]
+offset_right = 188.0
+offset_bottom = 107.0
+theme = ExtResource("1_m5u3v")
+theme_type_variation = &"PanelContailer_Solid"
+script = ExtResource("1_lvcqu")
+
+[node name="vBox" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="lbl_Name" type="Label" parent="vBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"LabelHeader"
+text = "Player Name"
+horizontal_alignment = 1
+
+[node name="btn_Add" type="Button" parent="vBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add to team"
+alignment = 0
+
+[node name="btn_Remove" type="Button" parent="vBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Remove from team"
+alignment = 0
+
+[node name="btn_Info" type="Button" parent="vBox"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Player Info"
+alignment = 0

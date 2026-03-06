@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bbfsj4aw40xif"]
 
 [ext_resource type="Script" uid="uid://nhpqt8vgagb8" path="res://Scenes/player_row.gd" id="1_h5xoh"]
-[ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/new_theme.tres" id="1_je1ko"]
+[ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/Theme/new_theme.tres" id="1_je1ko"]
 [ext_resource type="Texture2D" uid="uid://bdao7iawdljdh" path="res://Resources/Images/Icons/star_colored_black.png" id="2_cwuqo"]
 [ext_resource type="Texture2D" uid="uid://dumqxf6dup1ps" path="res://Resources/Images/Icons/star_colored_half_y-b.png" id="3_da8v3"]
 [ext_resource type="Texture2D" uid="uid://oiqo8d2hx063" path="res://Resources/Images/Icons/star_colored_gold.svg" id="4_hmdwy"]

@@ -1,18 +1,17 @@
-[gd_scene load_steps=17 format=3 uid="uid://bsrslecrg07iu"]
+[gd_scene load_steps=16 format=3 uid="uid://bsrslecrg07iu"]
 
 [ext_resource type="Texture2D" uid="uid://tjx6oyl62grw" path="res://Resources/Images/ChatGPT Image Feb 26, 2026, 04_18_43 PM.png" id="1_mh2u2"]
 [ext_resource type="Script" uid="uid://b37rqynp83d1s" path="res://Scripts/Players/player_gen_panel.gd" id="2_adcb8"]
 [ext_resource type="Texture2D" uid="uid://d3eq5xa37gq65" path="res://Resources/Images/Icons/body-organ.png" id="3_e1v2k"]
-[ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/Theme/new_theme.tres" id="4_4dhs5"]
+[ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/new_theme.tres" id="4_4dhs5"]
 [ext_resource type="Script" path="res://Scripts/Players/panel_player_card.gd" id="4_adcb8"]
-[ext_resource type="PackedScene" uid="uid://ettjycp5sow2" path="res://Scenes/scnUI_playerContextMenu.tscn" id="4_gelwn"]
 [ext_resource type="Script" path="res://Scripts/ui_options.gd" id="5_e1v2k"]
 [ext_resource type="Texture2D" uid="uid://bxyaktc7ohkow" path="res://Resources/Images/Icons/heart-rate (1).png" id="5_f01qd"]
 [ext_resource type="Texture2D" uid="uid://dhnq2yofl2m4d" path="res://Resources/Images/Icons/shield.png" id="6_gelwn"]
 [ext_resource type="Texture2D" uid="uid://cpfnjlgk4m52c" path="res://Resources/Images/Icons/target.png" id="7_bryrl"]
 [ext_resource type="PackedScene" uid="uid://bbfsj4aw40xif" path="res://Scenes/scn_playerRow.tscn" id="8_my6b3"]
 [ext_resource type="Script" uid="uid://dj2hfa37ymon4" path="res://addons/godot_radar_graph/radar_graph.gd" id="11_4dhs5"]
-[ext_resource type="PackedScene" uid="uid://blc3i2d6tvh64" path="res://Scenes/scn_testControl.tscn" id="12_f01qd"]
+[ext_resource type="PackedScene" path="res://Scenes/scn_testControl.tscn" id="12_f01qd"]
 
 [sub_resource type="Theme" id="Theme_pelmd"]
 
@@ -53,7 +52,6 @@ archetype1Settings = Vector3(5, 0.55, 0.1)
 archetype2Settings = Vector3(0, 0.55, 0.2)
 archetype3Settings = Vector3(-1, 0.55, 0.3)
 player_row_scene = ExtResource("8_my6b3")
-player_context_menu = ExtResource("4_gelwn")
 metadata/label_int = NodePath("panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Int/cardLabel_int")
 metadata/label_phys = NodePath("panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Phys/cardLabel_phys")
 metadata/label_def = NodePath("panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Def/cardLabel_def")

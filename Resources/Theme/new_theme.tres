@@ -1,8 +1,9 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://dehkb5i0pkd8y"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://dehkb5i0pkd8y"]
 
-[ext_resource type="FontFile" uid="uid://cconb3nqmex3h" path="res://Resources/Fonts/static/InstrumentSans-SemiBold.ttf" id="1_0odm5"]
-[ext_resource type="FontFile" uid="uid://bgvuu6385seni" path="res://Resources/Fonts/InstrumentSans-VariableFont_wdth,wght.ttf" id="2_u4w0n"]
-[ext_resource type="FontFile" uid="uid://dmdjouduwqnqv" path="res://Resources/Fonts/static/InstrumentSans-Bold.ttf" id="3_u4w0n"]
+[ext_resource type="FontFile" uid="uid://cconb3nqmex3h" path="res://Resources/Fonts/static/InstrumentSans-SemiBold.ttf" id="1_ppvid"]
+[ext_resource type="FontFile" uid="uid://bgvuu6385seni" path="res://Resources/Fonts/InstrumentSans-VariableFont_wdth,wght.ttf" id="2_gok43"]
+[ext_resource type="FontFile" uid="uid://dmdjouduwqnqv" path="res://Resources/Fonts/static/InstrumentSans-Bold.ttf" id="3_ww4c0"]
+[ext_resource type="StyleBox" uid="uid://cg6aa2co01riw" path="res://Resources/Theme/style_box_flat_dark.tres" id="4_84vaf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cyaoq"]
 content_margin_left = 4.0
@@ -94,14 +95,14 @@ Button/constants/h_separation = 4
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
 Button/font_sizes/font_size = 20
-Button/fonts/font = ExtResource("1_0odm5")
+Button/fonts/font = ExtResource("1_ppvid")
 Button/styles/disabled = SubResource("StyleBoxFlat_cyaoq")
 Button/styles/focus = SubResource("StyleBoxFlat_ghfi7")
 Button/styles/hover = SubResource("StyleBoxFlat_4ox71")
 Button/styles/normal = SubResource("StyleBoxFlat_tg3tf")
 Button/styles/pressed = SubResource("StyleBoxFlat_qsn2j")
 HeaderMedium/font_sizes/font_size = 34
-HeaderSmall/fonts/font = ExtResource("1_0odm5")
+HeaderSmall/fonts/font = ExtResource("1_ppvid")
 Label/colors/font_color = Color(1, 1, 1, 1)
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/colors/font_shadow_color = Color(0, 0, 0, 0)
@@ -111,13 +112,15 @@ Label/constants/shadow_offset_x = 1
 Label/constants/shadow_offset_y = 1
 Label/constants/shadow_outline_size = 1
 Label/font_sizes/font_size = 16
-Label/fonts/font = ExtResource("2_u4w0n")
+Label/fonts/font = ExtResource("2_gok43")
 Label/styles/focus = SubResource("StyleBoxFlat_ghfi7")
 Label/styles/normal = SubResource("StyleBoxEmpty_5v805")
 LabelHeader/base_type = &"Label"
 LabelHeader/font_sizes/font_size = 24
-LabelHeader/fonts/font = ExtResource("3_u4w0n")
+LabelHeader/fonts/font = ExtResource("3_ww4c0")
 MarginContainer/constants/margin_bottom = 10
 MarginContainer/constants/margin_left = 10
 MarginContainer/constants/margin_right = 10
 MarginContainer/constants/margin_top = 10
+PanelContailer_Solid/base_type = &"PanelContainer"
+PanelContailer_Solid/styles/panel = ExtResource("4_84vaf")

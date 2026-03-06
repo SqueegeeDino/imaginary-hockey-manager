@@ -158,7 +158,6 @@ func generate_profile(
 		if r > best_posRating:
 			best_posRating = r
 			best_pos = int(pos)
-	print(posDict)
 	return PlayerProfile.new(id, name, i, p, d, o, role, best_pos)
 
 func generate_many(
