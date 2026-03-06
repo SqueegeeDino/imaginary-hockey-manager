@@ -10,6 +10,8 @@
 custom_minimum_size = Vector2(750, 50)
 offset_right = 750.0
 offset_bottom = 50.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
 script = ExtResource("1_h5xoh")
 star_empty = ExtResource("2_cwuqo")
 star_half = ExtResource("3_da8v3")
@@ -42,7 +44,7 @@ max_lines_visible = 1
 
 [node name="starContainer" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 10
 
 [node name="icon_star1" type="TextureRect" parent="HBoxContainer/starContainer"]
 layout_mode = 2
