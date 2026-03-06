@@ -166,7 +166,8 @@ func _on_generate_list_pressed(
 		_on_generate_list_(isClear)
 
 ## Generic list generator
-# Currently relies on dropdowns and slider to control certain values
+# Currently relies on dropdowns and slider to control certain values. 
+#Debugging only, probably will be deprecated
 func _on_generate_list_(isClear: bool) -> void:
 	var nT = nameType.get_selected_id()
 	var q = skaterQuality.get_selected_id()
@@ -214,8 +215,10 @@ func _on_generate_list_(isClear: bool) -> void:
 		player_list_vbox.add_child(row)
 		
 		row.set_player(p,s)
-		row.hovered.connect(_on_player_hovered)
+		#row.hovered.connect(_on_player_hovered)
 		row.exited.connect(_on_player_exited)
+		row.clicked.connect(_on_player_clicked)
+
 ## List generator using superTypes (superstar, middle six player, bottom 6 player, etc.)
 # More or less a version of _on_generate_list_ that allows for passing as much informaiton through
 # as arguments as possible
@@ -264,14 +267,11 @@ func _on_generate_list_superType(
 		row.set_player(p,s)
 		row.hovered.connect(_on_player_hovered)
 		row.exited.connect(_on_player_exited)
+		row.clicked.connect(_on_player_clicked)
 
+## Interface Controls
 # Hovering controls
 func _on_player_hovered(p: PlayerProfile) -> void:
-	print("========")
-	print("Hovered")
-	print(p.display_name)
-	print(p.role)
-	print(p.bestPos)
 	if p == null:
 		return
 	
@@ -285,14 +285,17 @@ func _on_player_hovered(p: PlayerProfile) -> void:
 	label_phys.text = str(p.physical)
 	label_def.text = str(p.defense)
 	label_off.text = str(p.offense)
-	label_role.text = str(p.role)
-	label_pos.text = str(p.bestPos)
+	label_role.text = PlayerGenerator.get_roleName(p.role)
+	label_pos.text = PlayerGenerator.get_positionName(p.bestPos)
 
 func _on_player_exited(p: PlayerProfile) -> void:
 	if p == null:
 		return
 	hideTimer.start()
-	
+
+func _on_player_clicked(p: PlayerProfile) -> void:
+	print("Clicked!", p.display_name)
+
 func _on_card_hovered() -> void:
 	# Cancel pending hide while mouse is on the player card
 	hideTimer.stop()

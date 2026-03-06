@@ -30,6 +30,17 @@ class GeneratorConfig:
 		"defense": 0.0,
 		"offense": 0.0,
 	}
+# Role Mapping
+enum Role {
+	Forward = 1,
+	Defense = 2
+}
+static var role_names := {
+	Role.Forward: "Forward",
+	Role.Defense: "Defense"
+}
+static func get_roleName(role:int) -> String:
+	return role_names.get(role, "Unknown")
 
 # Position mapping
 enum Position {
@@ -48,7 +59,6 @@ static var position_names := {
 	Position.RD: "Right Defense",
 	Position.G:  "Goalie"
 }
-
 static func get_positionName(pos:int) -> String:
 	return position_names.get(pos, "Unknown")
 
@@ -148,9 +158,7 @@ func generate_profile(
 		if r > best_posRating:
 			best_posRating = r
 			best_pos = int(pos)
-	print("[player_generator - generate_profile] Name: ", name)
-	print("[player_generator - generate_profile] Role: ", role)
-	print("[player_generator - generate_profile] Position: ", best_pos)
+	print(posDict)
 	return PlayerProfile.new(id, name, i, p, d, o, role, best_pos)
 
 func generate_many(

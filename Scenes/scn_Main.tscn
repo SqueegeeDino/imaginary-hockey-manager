@@ -243,12 +243,14 @@ layout_mode = 2
 [node name="cardLabel_name" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 theme_type_variation = &"LabelHeader"
 text = "Skater Name"
 horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer"]
 layout_mode = 2
@@ -257,22 +259,26 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_type_variation = &"HeaderSmall"
 text = "Role"
 horizontal_alignment = 2
 
 [node name="VSeparator" type="VSeparator" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="cardLabel_position" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_type_variation = &"HeaderSmall"
 text = "Position"
 
 [node name="HSeparator2" type="HSeparator" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer"]
 layout_mode = 2
+mouse_filter = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer"]
 layout_mode = 2
@@ -295,6 +301,7 @@ stretch_mode = 5
 [node name="cardLabel_int" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Int"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("4_4dhs5")
 theme_override_font_sizes/font_size = 32
 text = "100"
@@ -312,6 +319,7 @@ stretch_mode = 5
 [node name="cardLabel_phys" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Phys"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("4_4dhs5")
 theme_override_font_sizes/font_size = 32
 text = "100"
@@ -329,6 +337,7 @@ stretch_mode = 5
 [node name="cardLabel_def" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Def"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("4_4dhs5")
 theme_override_font_sizes/font_size = 32
 text = "100"
@@ -346,6 +355,7 @@ stretch_mode = 5
 [node name="cardLabel_off" type="Label" parent="CanvasLayer/Control/panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Off"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("4_4dhs5")
 theme_override_font_sizes/font_size = 32
 text = "100"
