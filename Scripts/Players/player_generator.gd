@@ -56,10 +56,6 @@ static func get_positionName(pos:int) -> String:
 # Clamp from 0 to 1
 func _clamp01(x: float) -> float:
 	return clamp(x, 0.0, 1.0)
-# Generate a random number between 2 argument values, then clamp it to the 1-99 range. Used for player stats
-static func _rngClamp99(xMin,xMax) -> float:
-	var rng = RandomNumberGenerator.new()
-	return clamp(rng.randf_range(xMin,xMax), 1, 99)
 
 func _rand_normal(rng: RandomNumberGenerator) -> float:
 	var u1: float = max(rng.randf(), 0.000001)
@@ -103,12 +99,14 @@ func generate_profile(
 	var p: int = _sample_stat(rng, cfg, "physical")
 	var d: int = _sample_stat(rng, cfg, "defense")
 	var o: int = _sample_stat(rng, cfg, "offense") 
+	
+	# Stat adjustment based on role (forward, defender)
 	if role == 1: # If player is a forward adjust stats for offense and defense
-		d =- _rngClamp99(xMin,xMax)
-		o =+ _rngClamp99(xMin,xMax)
+		d = clamp((d - rng.randf_range(xMin,xMax)), 1, 99)
+		o = clamp((o + rng.randf_range(xMin,xMax)), 1, 99)
 	elif role == 2: # If player is a defender adjust stats
-		d =+ _rngClamp99(xMin,xMax)
-		o =- _rngClamp99(xMin,xMax)
+		d = clamp((d + rng.randf_range(xMin,xMax)), 1, 99)
+		o = clamp((o - rng.randf_range(xMin,xMax)), 1, 99)
 	else:
 		d = d
 		o = o
@@ -123,10 +121,10 @@ func generate_many(
 	count: int,
 	starting_id: int = 0,
 	name_type: int = 0,
-	role: int = 0
 ) -> Array[PlayerProfile]:
 	var out: Array[PlayerProfile] = []
 	out.resize(count)
 	for idx: int in range(count):
+		var role = rng.randi_range(1,2)
 		out[idx] = generate_profile(rng, cfg, starting_id + idx, name_type, role)
 	return out

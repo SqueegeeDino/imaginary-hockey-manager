@@ -76,34 +76,35 @@ func _update_player_card(p: PlayerProfile) -> void:
 	label_def.text = str(p.defense)
 	label_off.text = str(p.offense)
 
-func _generate_and_show(bias: float, mean:float, spread:float, name_index: int) -> void:
-	var cfg := _make_cfg(bias,mean,spread)
-	last_player = generator.generate_profile(
-		rng,
-		cfg,
-		next_id,
-		name_index
-	)
-	next_id += 1
-	_update_player_card(last_player)
-
-func _on_generate_skater_pressed() -> void:
-	var nT = nameType.get_selected_id()
-	var q = skaterQuality.get_selected_id()
-	var qV = qualityVariance.value
-	
-	# Set player quality bies based on the option menu index
-	if q == 1:
-		bias = 0.8
-	elif q == 2:
-		bias = -0.8
-	else:
-		bias = 0.0
-	
-	_generate_and_show(bias, 0.55, qV, nT)
-	print("Name Type:", nT)
-	print("Bias Index:", q)
-	print("Bias:", bias)
+## Generate and show single player. Deprecated. Most likely to be removed
+#func _generate_and_show(bias: float, mean:float, spread:float, name_index: int) -> void:
+	#var cfg := _make_cfg(bias,mean,spread)
+	#last_player = generator.generate_profile(
+		#rng,
+		#cfg,
+		#next_id,
+		#name_index
+	#)
+	#next_id += 1
+	#_update_player_card(last_player)
+## Funciton to be run from button for single player gen, Deprecated.
+#func _on_generate_skater_pressed() -> void:
+	#var nT = nameType.get_selected_id()
+	#var q = skaterQuality.get_selected_id()
+	#var qV = qualityVariance.value
+	#
+	## Set player quality bies based on the option menu index
+	#if q == 1:
+		#bias = 0.8
+	#elif q == 2:
+		#bias = -0.8
+	#else:
+		#bias = 0.0
+	#
+	#_generate_and_show(bias, 0.55, qV, nT)
+	#print("Name Type:", nT)
+	#print("Bias Index:", q)
+	#print("Bias:", bias)
 
 func overall_from_player(p: PlayerProfile) -> float:
 	# simple average of the 4 stats
@@ -237,7 +238,7 @@ func _on_generate_list_superType(
 	var count: int = qtyStr as int
 
 	# name_index 0 female full, 1 male full — pick one for now:
-	var nT = nameType.get_selected_id()
+	var nT := nameGenType
 
 	players_cache = generator.generate_many(rng, cfg, count, next_id, nT)
 	next_id += count
