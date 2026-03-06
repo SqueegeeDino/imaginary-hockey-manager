@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cpfnjlgk4m52c" path="res://Resources/Images/Icons/target.png" id="7_bryrl"]
 [ext_resource type="PackedScene" uid="uid://bbfsj4aw40xif" path="res://Scenes/scn_playerRow.tscn" id="8_my6b3"]
 [ext_resource type="Script" uid="uid://dj2hfa37ymon4" path="res://addons/godot_radar_graph/radar_graph.gd" id="11_4dhs5"]
-[ext_resource type="PackedScene" uid="uid://blc3i2d6tvh64" path="res://Scenes/scn_testControl.tscn" id="12_f01qd"]
+[ext_resource type="PackedScene" path="res://Scenes/scn_testControl.tscn" id="12_f01qd"]
 
 [sub_resource type="Theme" id="Theme_pelmd"]
 
@@ -221,21 +221,29 @@ clear_button_enabled = true
 
 [node name="panel_playerList" type="Panel" parent="CanvasLayer/Control"]
 layout_mode = 0
-offset_left = 1170.0
+offset_left = 1440.0
 offset_top = 10.0
-offset_right = 1902.0
+offset_right = 1912.0
 offset_bottom = 1060.0
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/panel_playerList"]
-layout_mode = 0
-offset_right = 734.0
-offset_bottom = 1051.0
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/panel_playerList"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="vBox_playerList" type="VBoxContainer" parent="CanvasLayer/Control/panel_playerList/ScrollContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/panel_playerList/MarginContainer"]
+layout_mode = 2
+theme = ExtResource("4_4dhs5")
+
+[node name="vBox_playerList" type="VBoxContainer" parent="CanvasLayer/Control/panel_playerList/MarginContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="_playerRow" parent="CanvasLayer/Control/panel_playerList/ScrollContainer/vBox_playerList" instance=ExtResource("8_my6b3")]
+[node name="_playerRow" parent="CanvasLayer/Control/panel_playerList/MarginContainer/ScrollContainer/vBox_playerList" instance=ExtResource("8_my6b3")]
 layout_mode = 2
 
 [node name="panel_playerCard" type="PanelContainer" parent="CanvasLayer/Control"]
@@ -243,10 +251,10 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 1
 anchors_preset = -1
-offset_left = 914.0
-offset_top = 11.0
-offset_right = 1164.0
-offset_bottom = 129.0
+offset_left = 1182.0
+offset_top = 9.0
+offset_right = 1432.0
+offset_bottom = 187.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_adcb8")

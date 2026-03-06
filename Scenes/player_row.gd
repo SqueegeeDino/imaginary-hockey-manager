@@ -12,11 +12,11 @@ signal clicked(player: PlayerProfile)
 
 @onready var label_name: Label = $HBoxContainer/_playerLabel_name
 @onready var stars := [
-	$HBoxContainer/starContainer/icon_star1,
-	$HBoxContainer/starContainer/icon_star2,
-	$HBoxContainer/starContainer/icon_star3,
-	$HBoxContainer/starContainer/icon_star4,
-	$HBoxContainer/starContainer/icon_star5
+	$HBoxContainer/MarginContainer/starContainer/icon_star1,
+	$HBoxContainer/MarginContainer/starContainer/icon_star2,
+	$HBoxContainer/MarginContainer/starContainer/icon_star3,
+	$HBoxContainer/MarginContainer/starContainer/icon_star4,
+	$HBoxContainer/MarginContainer/starContainer/icon_star5
 ]
 
 
