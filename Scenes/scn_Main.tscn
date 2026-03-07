@@ -221,14 +221,36 @@ size_flags_horizontal = 3
 text = "5"
 clear_button_enabled = true
 
-[node name="panel_playerList" type="Panel" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 1440.0
-offset_top = 10.0
-offset_right = 1912.0
-offset_bottom = 1060.0
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.175
+anchor_top = -0.2
+anchor_right = 1.175
+anchor_bottom = -0.2
+offset_left = 1391.0
+offset_top = 43.0
+offset_right = 1863.8
+offset_bottom = 1043.0
+grow_horizontal = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/panel_playerList"]
+[node name="headPanel_AvailablePlayers" type="PanelContainer" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"PanelContailer_Solid"
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/VBoxContainer/headPanel_AvailablePlayers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"LabelHeader"
+text = "Available Players"
+
+[node name="panel_playerList" type="Panel" parent="CanvasLayer/Control/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/VBoxContainer/panel_playerList"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -236,17 +258,49 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/panel_playerList/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/VBoxContainer/panel_playerList/MarginContainer"]
 layout_mode = 2
 theme = ExtResource("4_4dhs5")
 
-[node name="vBox_playerList" type="VBoxContainer" parent="CanvasLayer/Control/panel_playerList/MarginContainer/ScrollContainer"]
+[node name="vBox_playerList" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/panel_playerList/MarginContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="_playerRow" parent="CanvasLayer/Control/panel_playerList/MarginContainer/ScrollContainer/vBox_playerList" instance=ExtResource("8_my6b3")]
+[node name="_playerRow" parent="CanvasLayer/Control/VBoxContainer/panel_playerList/MarginContainer/ScrollContainer/vBox_playerList" instance=ExtResource("8_my6b3")]
 layout_mode = 2
+
+[node name="headPanel_SelectedPlayers" type="PanelContainer" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_type_variation = &"PanelContailer_Solid"
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/VBoxContainer/headPanel_SelectedPlayers"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"LabelHeader"
+text = "Selected Players"
+
+[node name="panel_playerList2" type="Panel" parent="CanvasLayer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/Control/VBoxContainer/panel_playerList2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer2" type="ScrollContainer" parent="CanvasLayer/Control/VBoxContainer/panel_playerList2/MarginContainer2"]
+layout_mode = 2
+theme = ExtResource("4_4dhs5")
+
+[node name="vBox_playerList2" type="VBoxContainer" parent="CanvasLayer/Control/VBoxContainer/panel_playerList2/MarginContainer2/ScrollContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="panel_playerCard" type="PanelContainer" parent="CanvasLayer/Control"]
 unique_name_in_owner = true

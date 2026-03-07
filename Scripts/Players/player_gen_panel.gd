@@ -23,6 +23,7 @@ const RadarGraph = preload("res://addons/godot_radar_graph/radar_graph.gd") # Pr
 @export var player_context_menu: PackedScene # Context menu prefab
 # Drag these in via the Inspector OR use the NodePath version below.
 @onready var player_list_vbox: VBoxContainer = %vBox_playerList
+@onready var selected_vbox: VBoxContainer = %vBox_playerList2
 @onready var playerCard: PanelContainer = %panel_playerCard
 @onready var label_int: Label = %cardLabel_int
 @onready var label_phys: Label = %cardLabel_phys
@@ -292,12 +293,6 @@ func _on_player_exited(p: PlayerProfile) -> void:
 		return
 	hideTimer.start()
 
-func _on_player_left_clicked(p: PlayerProfile) -> void:
-	radarGraph.set_item_value(0,p.intelligence)
-	radarGraph.set_item_value(1,p.physical)
-	radarGraph.set_item_value(2,p.offense)
-	radarGraph.set_item_value(3,p.defense)
-
 	# Player Card Handling
 func _on_card_hovered() -> void:
 	# Cancel pending hide while mouse is on the player card
@@ -323,6 +318,12 @@ func _clamp_menu_to_window(menu: Control, click_pos: Vector2) -> Vector2:
 	var y: float = clamp(click_pos.y, 0.0, window_size.y - menu_size.y)
 	return Vector2(x,y)
 
+func _on_player_left_clicked(n: Node) -> void:
+	if n.get_parent() == player_list_vbox:
+		n.reparent(selected_vbox)
+	else:
+		n.reparent(player_list_vbox)
+
 func _on_player_right_clicked(p: PlayerProfile, click_pos: Vector2) -> void:
 	# Close any existing menu first
 	if active_context_menu != null and is_instance_valid(active_context_menu):
@@ -345,7 +346,6 @@ func _on_player_right_clicked(p: PlayerProfile, click_pos: Vector2) -> void:
 ## Context menu actions
 func _on_menu_add_to_team(p: PlayerProfile) -> void:
 	print("Add to team:", p.display_name)
-	# Later: move player to team UI area
 
 func _on_menu_remove_from_team(p: PlayerProfile) -> void:
 	print("Remove from team:", p.display_name)
@@ -353,4 +353,7 @@ func _on_menu_remove_from_team(p: PlayerProfile) -> void:
 
 func _on_menu_show_more_info(p: PlayerProfile) -> void:
 	print("Show more info:", p.display_name)
-	# Later: open fuller player details panel
+	radarGraph.set_item_value(0,p.intelligence)
+	radarGraph.set_item_value(1,p.physical)
+	radarGraph.set_item_value(2,p.offense)
+	radarGraph.set_item_value(3,p.defense)

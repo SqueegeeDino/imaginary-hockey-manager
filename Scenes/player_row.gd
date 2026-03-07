@@ -4,7 +4,7 @@ extends Button
 
 signal hovered(player: PlayerProfile)
 signal exited(player: PlayerProfile)
-signal clicked_left(player: PlayerProfile)
+signal clicked_left(row: Node)
 signal clicked_right(player: PlayerProfile, global_pos: Vector2)
 
 @export var star_empty: Texture2D
@@ -61,7 +61,6 @@ func _set_stars(star_units: int) -> void:
 func _gui_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.pressed:
 		if event.button_index == MOUSE_BUTTON_LEFT:
-			clicked_left.emit(player)
+			clicked_left.emit(self)
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			clicked_right.emit(player, get_global_mouse_position())
-		
