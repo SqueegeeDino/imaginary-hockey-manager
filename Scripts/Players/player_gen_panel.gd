@@ -18,6 +18,11 @@ const RadarGraph = preload("res://addons/godot_radar_graph/radar_graph.gd") # Pr
 @export var archetype1Settings: Vector3
 @export var archetype2Settings: Vector3
 @export var archetype3Settings: Vector3
+# Other elements
+@export var label_points: Label
+@onready var points: int = 100
+@export var label_playerCount: Label
+@onready var playerCount: int = 0
 # Player row scene prefab
 @export var player_row_scene: PackedScene  # assign PlayerRow.tscn in inspector
 @export var player_context_menu: PackedScene # Context menu prefab
@@ -319,11 +324,20 @@ func _clamp_menu_to_window(menu: Control, click_pos: Vector2) -> Vector2:
 	var y: float = clamp(click_pos.y, 0.0, window_size.y - menu_size.y)
 	return Vector2(x,y)
 
-func _on_player_left_clicked(n: Node) -> void:
-	if n.get_parent() == player_list_vbox:
-		n.reparent(selected_vbox)
-	else:
+func _on_player_left_clicked(p: PlayerProfile, n: Node) -> void:
+	if n.get_parent() == player_list_vbox: # Move player from available to selected menu
+		if p.starRating <= points:
+			n.reparent(selected_vbox)
+			points = points - p.starRating
+			label_points.text = str(points)
+			playerCount = playerCount + 1
+			label_playerCount.text = str(playerCount)
+	else: # Remove player from team
 		n.reparent(player_list_vbox)
+		points = points + p.starRating
+		label_points.text = str(points)
+		playerCount = playerCount - 1
+		label_playerCount.text = str(playerCount)
 
 func _on_player_right_clicked(p: PlayerProfile, click_pos: Vector2, r: Node) -> void:
 	# Close any existing menu first
@@ -349,12 +363,21 @@ func _on_player_right_clicked(p: PlayerProfile, click_pos: Vector2, r: Node) -> 
 	active_context_menu = menu
 ## Context menu actions
 func _on_menu_add_to_team(p: PlayerProfile) -> void:
-	if active_player_row.get_parent() == player_list_vbox:
-		active_player_row.reparent(selected_vbox)
+	if p.starRating <= points:
+		if active_player_row.get_parent() == player_list_vbox:
+			active_player_row.reparent(selected_vbox)
+			points = points - p.starRating
+			label_points.text = str(points)
+			playerCount = playerCount + 1
+			label_playerCount.text = str(playerCount)
 
 func _on_menu_remove_from_team(p: PlayerProfile) -> void:
 	if active_player_row.get_parent() != player_list_vbox:
 		active_player_row.reparent(player_list_vbox)
+		points = points + p.starRating
+		label_points.text = str(points)
+		playerCount = playerCount - 1
+		label_playerCount.text = str(playerCount)
 
 func _on_menu_show_more_info(p: PlayerProfile) -> void:
 	print("Show more info: ", p.display_name)

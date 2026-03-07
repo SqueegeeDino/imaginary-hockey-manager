@@ -31,7 +31,7 @@ position = Vector2(960, 540)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("hideTimer", "nameType", "skaterQuality", "qualityVariance", "useArchetypes", "archetype1", "archetype2", "archetype3", "radarGraph")]
+[node name="Control" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("hideTimer", "nameType", "skaterQuality", "qualityVariance", "useArchetypes", "archetype1", "archetype2", "archetype3", "radarGraph", "label_points", "label_playerCount")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -51,6 +51,8 @@ radarGraph = NodePath("RadarGraph")
 archetype1Settings = Vector3(5, 0.55, 0.1)
 archetype2Settings = Vector3(0, 0.55, 0.2)
 archetype3Settings = Vector3(-1, 0.55, 0.3)
+label_points = NodePath("panel_TeamInfo/GridContainer/points")
+label_playerCount = NodePath("panel_TeamInfo/GridContainer/playerCount")
 player_row_scene = ExtResource("8_my6b3")
 player_context_menu = ExtResource("4_gelwn")
 metadata/label_int = NodePath("panel_playerCard/VBoxContainer/MarginContainer/GridContainer/HBox_Int/cardLabel_int")
@@ -498,6 +500,39 @@ items/key_3/value = 10.0
 items/key_3/title = "Defense"
 items/key_3/tooltip = ""
 metadata/_custom_type_script = "uid://dj2hfa37ymon4"
+
+[node name="panel_TeamInfo" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 415.0
+offset_right = 170.0
+offset_bottom = 453.0
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/panel_TeamInfo"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+columns = 2
+
+[node name="label_Points" type="Label" parent="CanvasLayer/Control/panel_TeamInfo/GridContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelHeader"
+text = "Points:"
+
+[node name="points" type="Label" parent="CanvasLayer/Control/panel_TeamInfo/GridContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelHeader"
+text = "100"
+
+[node name="label_playerCount" type="Label" parent="CanvasLayer/Control/panel_TeamInfo/GridContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelHeader"
+text = "Player Count:"
+
+[node name="playerCount" type="Label" parent="CanvasLayer/Control/panel_TeamInfo/GridContainer"]
+layout_mode = 2
+theme_type_variation = &"LabelHeader"
+text = "0"
 
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBox_listButtons/btn_listNew" to="CanvasLayer/Control" method="_on_generate_list_pressed" binds= [true]]
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBox_listButtons/btn_listAdd" to="CanvasLayer/Control" method="_on_generate_list_pressed" binds= [false]]
