@@ -92,6 +92,29 @@ func _sample_stat(rng: RandomNumberGenerator, cfg: GeneratorConfig, stat_key: St
 
 	return int(round(cfg.stat_min + x * r))
 
+func stars_from_overall(overall: float) -> int:
+	# Map 1..99-ish into 1..5 stars.
+	# Tweak thresholds freely.
+	if overall >= 95: return 10
+	if overall >= 90: return 9
+	if overall >= 80: return 8
+	if overall >= 70: return 7
+	if overall >= 60: return 6
+	if overall >= 50: return 5
+	if overall >= 40: return 4
+	if overall >= 30: return 3
+	if overall >= 20: return 2
+	return 1
+
+func average_array(data: Array) -> float:
+	if data.is_empty():
+		return 0.0
+	var sum: float = 0.0
+	for value in data:
+		sum += float(value)
+	return sum / data.size()
+
+## Profile Generation
 func generate_profile(
 	rng: RandomNumberGenerator, 
 	cfg: GeneratorConfig, 
@@ -142,6 +165,11 @@ func generate_profile(
 		lw = rng.randi_range(2,8)
 		rd = rng.randi_range(2,8)
 		ld = rng.randi_range(2,2)
+	
+	# Store skill values in an array
+	var skillArray: Array[float] = [i, p, d, o]
+	var ovr := average_array(skillArray) # Get the overall (average) value
+	var stars := stars_from_overall(ovr)
 	# Skater position
 	# Commit values to dict (this probably sucks)
 	posDict[1] = c
@@ -158,7 +186,7 @@ func generate_profile(
 		if r > best_posRating:
 			best_posRating = r
 			best_pos = int(pos)
-	return PlayerProfile.new(id, name, i, p, d, o, role, best_pos)
+	return PlayerProfile.new(id, name, i, p, d, o, role, best_pos, ovr, stars)
 
 func generate_many(
 	rng: RandomNumberGenerator,

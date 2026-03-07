@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bsrslecrg07iu"]
+[gd_scene load_steps=16 format=3 uid="uid://bsrslecrg07iu"]
 
 [ext_resource type="Texture2D" uid="uid://tjx6oyl62grw" path="res://Resources/Images/ChatGPT Image Feb 26, 2026, 04_18_43 PM.png" id="1_mh2u2"]
 [ext_resource type="Script" uid="uid://b37rqynp83d1s" path="res://Scripts/Players/player_gen_panel.gd" id="2_adcb8"]
@@ -12,7 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://cpfnjlgk4m52c" path="res://Resources/Images/Icons/target.png" id="7_bryrl"]
 [ext_resource type="PackedScene" uid="uid://bbfsj4aw40xif" path="res://Scenes/scn_playerRow.tscn" id="8_my6b3"]
 [ext_resource type="Script" uid="uid://dj2hfa37ymon4" path="res://addons/godot_radar_graph/radar_graph.gd" id="11_4dhs5"]
-[ext_resource type="PackedScene" path="res://Scenes/scn_testControl.tscn" id="12_f01qd"]
 
 [sub_resource type="Theme" id="Theme_pelmd"]
 
@@ -445,10 +444,10 @@ one_shot = true
 
 [node name="RadarGraph" type="Control" parent="CanvasLayer/Control"]
 anchors_preset = 0
-offset_left = 370.0
-offset_top = 239.0
-offset_right = 370.0
-offset_bottom = 239.0
+offset_left = 378.0
+offset_top = 12.0
+offset_right = 1137.0
+offset_bottom = 620.0
 theme = SubResource("Theme_f01qd")
 script = ExtResource("11_4dhs5")
 key_count = 4
@@ -499,42 +498,6 @@ items/key_3/value = 10.0
 items/key_3/title = "Defense"
 items/key_3/tooltip = ""
 metadata/_custom_type_script = "uid://dj2hfa37ymon4"
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 11.0
-offset_top = 448.0
-offset_right = 331.0
-offset_bottom = 1105.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/PanelContainer"]
-layout_mode = 2
-
-[node name="Control" parent="CanvasLayer/Control/PanelContainer/VBoxContainer" instance=ExtResource("12_f01qd")]
-layout_mode = 2
-
-[node name="Control2" parent="CanvasLayer/Control/PanelContainer/VBoxContainer" instance=ExtResource("12_f01qd")]
-layout_mode = 2
-
-[node name="Control3" parent="CanvasLayer/Control/PanelContainer/VBoxContainer" instance=ExtResource("12_f01qd")]
-layout_mode = 2
-
-[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 646.0
-offset_top = 98.0
-offset_right = 828.0
-offset_bottom = 138.0
-
-[node name="MenuButton" type="MenuButton" parent="CanvasLayer/Control/PanelContainer2"]
-layout_mode = 2
-text = "This is a test menu"
-item_count = 2
-popup/item_0/text = "First Element"
-popup/item_0/checkable = 2
-popup/item_0/id = 0
-popup/item_1/text = "Second Element"
-popup/item_1/id = 1
 
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBox_listButtons/btn_listNew" to="CanvasLayer/Control" method="_on_generate_list_pressed" binds= [true]]
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBox_listButtons/btn_listAdd" to="CanvasLayer/Control" method="_on_generate_list_pressed" binds= [false]]

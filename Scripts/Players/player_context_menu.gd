@@ -41,7 +41,7 @@ func _on_show_more_info_pressed() -> void:
 	if player != null:
 		show_more_info.emit(player)
 	queue_free()
-	
+
 func _on_flags_dropdown() -> void:
 	if panel_flags.visible:
 		panel_flags.visible = false

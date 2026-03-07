@@ -357,7 +357,9 @@ func _on_menu_remove_from_team(p: PlayerProfile) -> void:
 		active_player_row.reparent(player_list_vbox)
 
 func _on_menu_show_more_info(p: PlayerProfile) -> void:
-	print("Show more info:", p.display_name)
+	print("Show more info: ", p.display_name)
+	print("Ovr: ", p.overall)
+	print("Stars: ", p.starRating)
 	radarGraph.set_item_value(0,p.intelligence)
 	radarGraph.set_item_value(1,p.physical)
 	radarGraph.set_item_value(2,p.offense)
