@@ -456,19 +456,19 @@ radius = 250.0
 key_items = Array[Dictionary]([{
 "title": "Intelligence",
 "tooltip": "",
-"value": 45.0
+"value": 10.0
 }, {
 "title": "Physical",
 "tooltip": "",
-"value": 75.0
+"value": 10.0
 }, {
 "title": "Offense",
 "tooltip": "",
-"value": 60.0
+"value": 10.0
 }, {
 "title": "Defense",
 "tooltip": "",
-"value": 15.0
+"value": 10.0
 }])
 min_value = 1.0
 max_value = 102.0
@@ -486,16 +486,16 @@ graph_outline_color = Color(0.16867661, 0.7046226, 0.90224457, 1)
 graph_outline_width = 4.0
 show_guides = true
 guide_step = 20.0
-items/key_0/value = 45.0
+items/key_0/value = 10.0
 items/key_0/title = "Intelligence"
 items/key_0/tooltip = ""
-items/key_1/value = 75.0
+items/key_1/value = 10.0
 items/key_1/title = "Physical"
 items/key_1/tooltip = ""
-items/key_2/value = 60.0
+items/key_2/value = 10.0
 items/key_2/title = "Offense"
 items/key_2/tooltip = ""
-items/key_3/value = 15.0
+items/key_3/value = 10.0
 items/key_3/title = "Defense"
 items/key_3/tooltip = ""
 metadata/_custom_type_script = "uid://dj2hfa37ymon4"
@@ -518,6 +518,23 @@ layout_mode = 2
 
 [node name="Control3" parent="CanvasLayer/Control/PanelContainer/VBoxContainer" instance=ExtResource("12_f01qd")]
 layout_mode = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 646.0
+offset_top = 98.0
+offset_right = 828.0
+offset_bottom = 138.0
+
+[node name="MenuButton" type="MenuButton" parent="CanvasLayer/Control/PanelContainer2"]
+layout_mode = 2
+text = "This is a test menu"
+item_count = 2
+popup/item_0/text = "First Element"
+popup/item_0/checkable = 2
+popup/item_0/id = 0
+popup/item_1/text = "Second Element"
+popup/item_1/id = 1
 
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBox_listButtons/btn_listNew" to="CanvasLayer/Control" method="_on_generate_list_pressed" binds= [true]]
 [connection signal="pressed" from="CanvasLayer/Control/panelCont_genButtons/MarginContainer/VBoxContainer/HBox_listButtons/btn_listAdd" to="CanvasLayer/Control" method="_on_generate_list_pressed" binds= [false]]

@@ -309,6 +309,7 @@ func _on_hideTimer_timeout() -> void:
 ## Interacting with player list
 # Variables
 var active_context_menu: PlayerContextMenu = null # Create a null holding variable for active context menu checking
+var active_player_row: PlayerRow = null # Create a null holding variable for the currently active player row
 # Functions
 func _clamp_menu_to_window(menu: Control, click_pos: Vector2) -> Vector2:
 	var window_size := get_window().size
@@ -324,13 +325,16 @@ func _on_player_left_clicked(n: Node) -> void:
 	else:
 		n.reparent(player_list_vbox)
 
-func _on_player_right_clicked(p: PlayerProfile, click_pos: Vector2) -> void:
+func _on_player_right_clicked(p: PlayerProfile, click_pos: Vector2, r: Node) -> void:
 	# Close any existing menu first
 	if active_context_menu != null and is_instance_valid(active_context_menu):
 		active_context_menu.queue_free()
 		active_context_menu = null
-
+	
+	active_player_row = r
+	
 	var menu := player_context_menu.instantiate() as PlayerContextMenu
+	menu.active_row = r
 	add_child(menu)
 
 	menu.setup(p)
@@ -345,11 +349,12 @@ func _on_player_right_clicked(p: PlayerProfile, click_pos: Vector2) -> void:
 	active_context_menu = menu
 ## Context menu actions
 func _on_menu_add_to_team(p: PlayerProfile) -> void:
-	print("Add to team:", p.display_name)
+	if active_player_row.get_parent() == player_list_vbox:
+		active_player_row.reparent(selected_vbox)
 
 func _on_menu_remove_from_team(p: PlayerProfile) -> void:
-	print("Remove from team:", p.display_name)
-	# Later: remove from team UI area
+	if active_player_row.get_parent() != player_list_vbox:
+		active_player_row.reparent(player_list_vbox)
 
 func _on_menu_show_more_info(p: PlayerProfile) -> void:
 	print("Show more info:", p.display_name)

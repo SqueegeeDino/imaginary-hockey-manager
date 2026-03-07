@@ -1,41 +1,102 @@
-[gd_scene load_steps=3 format=3 uid="uid://ettjycp5sow2"]
+[gd_scene load_steps=4 format=3 uid="uid://ettjycp5sow2"]
 
 [ext_resource type="Script" uid="uid://bn2jjmbw2hj1r" path="res://Scripts/Players/player_context_menu.gd" id="1_lvcqu"]
 [ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/Theme/new_theme.tres" id="1_m5u3v"]
+[ext_resource type="Texture2D" uid="uid://dsmof3rbkbh2f" path="res://Resources/Images/Icons/keyboard_arrow_right_24dp_E3E3E3_FILL0_wght400_GRAD0_opsz24.svg" id="3_uxvmn"]
 
-[node name="UI_playerContextMenu" type="PanelContainer"]
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 259.0
+offset_bottom = 178.0
+script = ExtResource("1_lvcqu")
+
+[node name="UI_playerContextMenu" type="PanelContainer" parent="."]
+layout_mode = 0
 offset_right = 188.0
 offset_bottom = 107.0
 theme = ExtResource("1_m5u3v")
 theme_type_variation = &"PanelContailer_Solid"
-script = ExtResource("1_lvcqu")
 
-[node name="vBox" type="VBoxContainer" parent="."]
+[node name="vBox_main" type="VBoxContainer" parent="UI_playerContextMenu"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="lbl_Name" type="Label" parent="vBox"]
+[node name="lbl_Name" type="Label" parent="UI_playerContextMenu/vBox_main"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_type_variation = &"LabelHeader"
 text = "Player Name"
 horizontal_alignment = 1
 
-[node name="btn_Add" type="Button" parent="vBox"]
+[node name="btn_Add" type="Button" parent="UI_playerContextMenu/vBox_main"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Add to team"
 alignment = 0
 
-[node name="btn_Remove" type="Button" parent="vBox"]
+[node name="btn_Remove" type="Button" parent="UI_playerContextMenu/vBox_main"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Remove from team"
 alignment = 0
 
-[node name="btn_Info" type="Button" parent="vBox"]
+[node name="btn_Info" type="Button" parent="UI_playerContextMenu/vBox_main"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Player Info"
 alignment = 0
+
+[node name="btn_Flags" type="Button" parent="UI_playerContextMenu/vBox_main"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Flags"
+alignment = 0
+
+[node name="TextureRect" type="TextureRect" parent="UI_playerContextMenu/vBox_main/btn_Flags"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("3_uxvmn")
+
+[node name="panel_flags" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 190.0
+offset_top = 145.0
+offset_right = 378.0
+offset_bottom = 252.0
+size_flags_vertical = 0
+theme_type_variation = &"PanelContailer_Solid"
+
+[node name="vBox_flags" type="VBoxContainer" parent="panel_flags"]
+layout_mode = 2
+
+[node name="btn_Green" type="Button" parent="panel_flags/vBox_flags"]
+layout_mode = 2
+text = "Green"
+alignment = 0
+
+[node name="btn_Red" type="Button" parent="panel_flags/vBox_flags"]
+layout_mode = 2
+text = "Red"
+alignment = 0
+
+[node name="btn_Red2" type="Button" parent="panel_flags/vBox_flags"]
+layout_mode = 2
+text = "Clear"
+alignment = 0
+
+[connection signal="pressed" from="UI_playerContextMenu/vBox_main/btn_Flags" to="." method="_on_flags_dropdown"]
+[connection signal="pressed" from="panel_flags/vBox_flags/btn_Green" to="." method="_on_flag_green"]
+[connection signal="pressed" from="panel_flags/vBox_flags/btn_Red" to="." method="_on_flag_red"]
+[connection signal="pressed" from="panel_flags/vBox_flags/btn_Red2" to="." method="_on_flag_clear"]
