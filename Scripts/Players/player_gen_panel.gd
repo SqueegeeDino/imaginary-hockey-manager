@@ -38,11 +38,6 @@ const RadarGraph = preload("res://addons/godot_radar_graph/radar_graph.gd") # Pr
 @onready var label_role: Label = %cardLabel_role
 @onready var label_pos: Label = %cardLabel_position
 
-#@onready var button_nor: Button = %button_Nor
-#@onready var button_goo: Button = %button_Goo
-#@onready var button_bad: Button = %button_Bad
-#@onready var button_500: Button = %button_500
-
 var rng := RandomNumberGenerator.new()
 var generator := PlayerGenerator.new()
 var last_player: PlayerProfile = null
@@ -62,12 +57,6 @@ func _ready() -> void:
 	playerCard.card_hovered.connect(_on_card_hovered)
 	playerCard.card_unhovered.connect(_on_card_unhovered)
 
-	# Connect buttons (only needed if you haven't wired signals in the editor)
-	#button_nor.pressed.connect(_on_generate_normal_pressed)
-	#button_goo.pressed.connect(_on_generate_good_pressed)
-	#button_bad.pressed.connect(_on_generate_bad_pressed)
-	#button_500.pressed.connect(_on_generate_500_pressed)
-
 func _make_cfg(bias: float, mean: float, spread: float) -> PlayerGenerator.GeneratorConfig:
 	var cfg := PlayerGenerator.GeneratorConfig.new()
 	cfg.stat_min = 1
@@ -83,36 +72,6 @@ func _update_player_card(p: PlayerProfile) -> void:
 	label_phys.text = str(p.physical)
 	label_def.text = str(p.defense)
 	label_off.text = str(p.offense)
-
-## Generate and show single player. Deprecated. Most likely to be removed
-#func _generate_and_show(bias: float, mean:float, spread:float, name_index: int) -> void:
-	#var cfg := _make_cfg(bias,mean,spread)
-	#last_player = generator.generate_profile(
-		#rng,
-		#cfg,
-		#next_id,
-		#name_index
-	#)
-	#next_id += 1
-	#_update_player_card(last_player)
-## Funciton to be run from button for single player gen, Deprecated.
-#func _on_generate_skater_pressed() -> void:
-	#var nT = nameType.get_selected_id()
-	#var q = skaterQuality.get_selected_id()
-	#var qV = qualityVariance.value
-	#
-	## Set player quality bies based on the option menu index
-	#if q == 1:
-		#bias = 0.8
-	#elif q == 2:
-		#bias = -0.8
-	#else:
-		#bias = 0.0
-	#
-	#_generate_and_show(bias, 0.55, qV, nT)
-	#print("Name Type:", nT)
-	#print("Bias Index:", q)
-	#print("Bias:", bias)
 
 func overall_from_player(p: PlayerProfile) -> float:
 	# simple average of the 4 stats
