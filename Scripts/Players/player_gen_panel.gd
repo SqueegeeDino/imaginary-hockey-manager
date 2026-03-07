@@ -13,6 +13,7 @@ class_name PlayerGen
 @export var archetype2: LineEdit
 @export var archetype3: LineEdit
 @export var radarGraph: RadarGraph
+@export var radarTeam: RadarGraph
 const RadarGraph = preload("res://addons/godot_radar_graph/radar_graph.gd") # Preload the radar
 # Archetype settings
 @export var archetype1Settings: Vector3
@@ -95,6 +96,39 @@ func _clear_player_list() -> void:
 	for child in player_list_vbox.get_children():
 		child.queue_free()
 
+func average_array(data: Array) -> float:
+	if data.is_empty():
+		return 0.0
+	var sum: float = 0.0
+	for value in data:
+		sum += float(value)
+	return sum / data.size()
+
+func _list_stat_average(list: Node, stat: String) -> float:
+	var player_array: Array = []
+	var stat_array: Array = []
+	var row_array: Array = list.get_children(false)
+	# Take the array of player_row items and punch out all their player_profile items into a different array
+	for r in row_array:
+		var p = r.player
+		player_array.append(p)
+	# Take the array of player_profile items generated above, and punch out all their values of the desired stat
+	for i in player_array:
+		var s = i.get(stat)
+		stat_array.append(s)
+	return average_array(stat_array)
+
+func _on_average_call():
+	print("Intelligence: ",_list_stat_average(selected_vbox, "intelligence"))
+	var avg_i: float = _list_stat_average(selected_vbox, "intelligence")
+	print("Physical: ",_list_stat_average(selected_vbox, "physical"))
+	var avg_p: float = _list_stat_average(selected_vbox, "physical")
+	print("Offense: ",_list_stat_average(selected_vbox, "offense"))
+	var avg_o: float = _list_stat_average(selected_vbox, "offense")
+	print("Defense: ",_list_stat_average(selected_vbox, "defense"))
+	var avg_d: float = _list_stat_average(selected_vbox, "defense")
+	return {"avg_int":avg_i, "avg_phy":avg_p, "avg_off":avg_o, "avg_def":avg_d}
+	
 ## List generation button signal
 func _on_generate_list_pressed(
 	isClear: bool,
@@ -291,12 +325,24 @@ func _on_player_left_clicked(p: PlayerProfile, n: Node) -> void:
 			label_points.text = str(points)
 			playerCount = playerCount + 1
 			label_playerCount.text = str(playerCount)
+			
+			var stat_dict = _on_average_call()
+			radarTeam.set_item_value(0,stat_dict["avg_int"])
+			radarTeam.set_item_value(1,stat_dict["avg_phy"])
+			radarTeam.set_item_value(2,stat_dict["avg_off"])
+			radarTeam.set_item_value(3,stat_dict["avg_def"])
+			
 	else: # Remove player from team
 		n.reparent(player_list_vbox)
 		points = points + p.starRating
 		label_points.text = str(points)
 		playerCount = playerCount - 1
 		label_playerCount.text = str(playerCount)
+		var stat_dict = _on_average_call()
+		radarTeam.set_item_value(0,stat_dict["avg_int"])
+		radarTeam.set_item_value(1,stat_dict["avg_phy"])
+		radarTeam.set_item_value(2,stat_dict["avg_off"])
+		radarTeam.set_item_value(3,stat_dict["avg_def"])
 
 func _on_player_right_clicked(p: PlayerProfile, click_pos: Vector2, r: Node) -> void:
 	# Close any existing menu first
@@ -329,6 +375,11 @@ func _on_menu_add_to_team(p: PlayerProfile) -> void:
 			label_points.text = str(points)
 			playerCount = playerCount + 1
 			label_playerCount.text = str(playerCount)
+			var stat_dict = _on_average_call()
+			radarTeam.set_item_value(0,stat_dict["avg_int"])
+			radarTeam.set_item_value(1,stat_dict["avg_phy"])
+			radarTeam.set_item_value(2,stat_dict["avg_off"])
+			radarTeam.set_item_value(3,stat_dict["avg_def"])
 
 func _on_menu_remove_from_team(p: PlayerProfile) -> void:
 	if active_player_row.get_parent() != player_list_vbox:
@@ -337,6 +388,11 @@ func _on_menu_remove_from_team(p: PlayerProfile) -> void:
 		label_points.text = str(points)
 		playerCount = playerCount - 1
 		label_playerCount.text = str(playerCount)
+		var stat_dict = _on_average_call()
+		radarTeam.set_item_value(0,stat_dict["avg_int"])
+		radarTeam.set_item_value(1,stat_dict["avg_phy"])
+		radarTeam.set_item_value(2,stat_dict["avg_off"])
+		radarTeam.set_item_value(3,stat_dict["avg_def"])
 
 func _on_menu_show_more_info(p: PlayerProfile) -> void:
 	print("Show more info: ", p.display_name)
