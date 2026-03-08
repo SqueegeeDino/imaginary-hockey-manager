@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b35ae70avkaf0"]
+
+[ext_resource type="Texture2D" uid="uid://tjx6oyl62grw" path="res://Resources/Images/ChatGPT Image Feb 26, 2026, 04_18_43 PM.png" id="1_r6m8f"]
+
+[node name="Control" type="Node"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Backdrop" type="Sprite2D" parent="."]
+scale = Vector2(1.2479979, 1.0879999)
+texture = ExtResource("1_r6m8f")
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(1198.078, 587.51996)
+scale = Vector2(1.2479979, 1.0879999)
