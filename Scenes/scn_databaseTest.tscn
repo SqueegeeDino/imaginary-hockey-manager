@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b35ae70avkaf0"]
+[gd_scene load_steps=4 format=3 uid="uid://b35ae70avkaf0"]
 
 [ext_resource type="Texture2D" uid="uid://tjx6oyl62grw" path="res://Resources/Images/ChatGPT Image Feb 26, 2026, 04_18_43 PM.png" id="1_r6m8f"]
+[ext_resource type="Script" uid="uid://dnmu1hwlyq586" path="res://Scripts/Database/databaseControl.gd" id="1_t40ar"]
 [ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/Theme/new_theme.tres" id="1_tl1bn"]
 
 [node name="Control" type="Node"]
@@ -12,6 +13,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+script = ExtResource("1_t40ar")
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
@@ -52,7 +54,7 @@ layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Delete Data"
 
-[node name="btn_customeSelect" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+[node name="btn_customSelect" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Custom Select"
@@ -107,3 +109,10 @@ centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(962, 540)
+
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_createTable" to="CanvasLayer/Control" method="_on_btn_create_table_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_insertData" to="CanvasLayer/Control" method="_on_btn_insert_data_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_selectData" to="CanvasLayer/Control" method="_on_btn_select_data_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_updateData" to="CanvasLayer/Control" method="_on_btn_update_data_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_deleteData" to="CanvasLayer/Control" method="_on_btn_delete_data_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_customSelect" to="CanvasLayer/Control" method="_on_btn_custome_select_pressed"]
