@@ -1,16 +1,109 @@
-[gd_scene load_steps=2 format=3 uid="uid://b35ae70avkaf0"]
+[gd_scene load_steps=3 format=3 uid="uid://b35ae70avkaf0"]
 
 [ext_resource type="Texture2D" uid="uid://tjx6oyl62grw" path="res://Resources/Images/ChatGPT Image Feb 26, 2026, 04_18_43 PM.png" id="1_r6m8f"]
+[ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/Theme/new_theme.tres" id="1_tl1bn"]
 
 [node name="Control" type="Node"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 24.0
+offset_right = 101.0
+offset_bottom = 64.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="btn_createTable" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("1_tl1bn")
+text = "Create Table"
+
+[node name="btn_insertData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("1_tl1bn")
+text = "Insert Data"
+
+[node name="btn_selectData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("1_tl1bn")
+text = "Select Data"
+
+[node name="btn_updateData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("1_tl1bn")
+text = "Update Data"
+
+[node name="btn_deleteData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("1_tl1bn")
+text = "Delete Data"
+
+[node name="btn_customeSelect" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("1_tl1bn")
+text = "Custom Select"
+
+[node name="GridContainer2" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="lbl_name" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "Name"
+
+[node name="name" type="LineEdit" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+layout_mode = 2
+
+[node name="lbl_score" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "Score"
+
+[node name="score" type="LineEdit" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+layout_mode = 2
+
 [node name="Backdrop" type="Sprite2D" parent="."]
-scale = Vector2(1.2479979, 1.0879999)
+scale = Vector2(1.2513021, 1.0566406)
+texture = ExtResource("1_r6m8f")
+centered = false
+
+[node name="Backdrop2" type="Sprite2D" parent="."]
+scale = Vector2(1.2513021, 1.0566406)
+texture = ExtResource("1_r6m8f")
+centered = false
+
+[node name="Backdrop3" type="Sprite2D" parent="."]
+scale = Vector2(1.2513021, 1.0566406)
+texture = ExtResource("1_r6m8f")
+centered = false
+
+[node name="Backdrop4" type="Sprite2D" parent="."]
+scale = Vector2(1.2513021, 1.0566406)
+texture = ExtResource("1_r6m8f")
+centered = false
+
+[node name="Backdrop5" type="Sprite2D" parent="."]
+scale = Vector2(1.2513021, 1.0566406)
+texture = ExtResource("1_r6m8f")
+centered = false
+
+[node name="Backdrop6" type="Sprite2D" parent="."]
+scale = Vector2(1.2513021, 1.0566406)
 texture = ExtResource("1_r6m8f")
 centered = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(1198.078, 587.51996)
-scale = Vector2(1.2479979, 1.0879999)
+position = Vector2(962, 540)
