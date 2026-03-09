@@ -18,7 +18,6 @@ func _on_btn_create_table_pressed() -> void:
 
 
 func _on_btn_insert_data_pressed() -> void:
-	
 	print("Score: ", int($PanelContainer/HBoxContainer/GridContainer2/score.text))
 	var data = {
 		"name" : $PanelContainer/HBoxContainer/GridContainer2/name.text,
@@ -37,7 +36,7 @@ func _on_btn_update_data_pressed() -> void:
 
 
 func _on_btn_delete_data_pressed() -> void:
-	pass # Replace with function body.
+	database.delete_rows("players", "id > 0")
 
 
 func _on_btn_custom_select_pressed() -> void:
