@@ -2,6 +2,9 @@ extends Control
 
 var database: SQLite
 
+@onready var nameLine = $PanelContainer/HBoxContainer/GridContainer2/name
+@onready var scoreLine = $PanelContainer/HBoxContainer/GridContainer2/score
+
 func _ready():
 	database = SQLite.new()
 	database.path = "res://data.db"
@@ -18,20 +21,21 @@ func _on_btn_create_table_pressed() -> void:
 
 
 func _on_btn_insert_data_pressed() -> void:
-	print("Score: ", int($PanelContainer/HBoxContainer/GridContainer2/score.text))
+	print("Score: ", int(scoreLine.text))
 	var data = {
-		"name" : $PanelContainer/HBoxContainer/GridContainer2/name.text,
-		"score" : int($PanelContainer/HBoxContainer/GridContainer2/score.text)
+		"name" : nameLine.text,
+		"score" : int(scoreLine.text)
 	}
 	
 	database.insert_row("players", data)
 
 
 func _on_btn_select_data_pressed() -> void:
-	pass # Replace with function body.
+	print(database.select_rows("players", "id > 0", ["*"]))
 
 
 func _on_btn_update_data_pressed() -> void:
+	database.update_rows("players", "name = '" + nameLine.text + "'", {"score": int(scoreLine.text)})
 	pass # Replace with function body.
 
 
@@ -40,4 +44,8 @@ func _on_btn_delete_data_pressed() -> void:
 
 
 func _on_btn_custom_select_pressed() -> void:
-	pass # Replace with function body.
+	database.query("select * from players
+JOIN playerInfo on playerInfo.id = players.playerInfoID
+where score > " + scoreLine.text)
+	for i in database.query_result:
+		print(i)

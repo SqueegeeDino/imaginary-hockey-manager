@@ -115,4 +115,4 @@ position = Vector2(962, 540)
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_selectData" to="CanvasLayer/Control" method="_on_btn_select_data_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_updateData" to="CanvasLayer/Control" method="_on_btn_update_data_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_deleteData" to="CanvasLayer/Control" method="_on_btn_delete_data_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_customSelect" to="CanvasLayer/Control" method="_on_btn_custome_select_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_customSelect" to="CanvasLayer/Control" method="_on_btn_custom_select_pressed"]
