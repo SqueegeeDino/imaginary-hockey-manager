@@ -44,3 +44,7 @@ JOIN playerInfo on playerInfo.id = players.playerInfoID
 where score > " + scoreLine.text)
 	for i in database.query_result:
 		print(i)
+
+func _on_btn_sort_scores_pressed() -> void:
+	database.query("select score, name from players ORDER BY score DESC")
+	print(database.query_result[0])
