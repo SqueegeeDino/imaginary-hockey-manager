@@ -4,12 +4,25 @@ var database: SQLite
 
 @onready var nameLine = $PanelContainer/HBoxContainer/GridContainer2/name
 @onready var scoreLine = $PanelContainer/HBoxContainer/GridContainer2/score
+@onready var sortAsc = $PanelContainer/HBoxContainer/GridContainer/check_sortAsc
 
 func _ready():
 	database = SQLite.new()
 	database.path = "res://data.db"
 	database.open_db()
 
+## Helpers
+# Ascendin and descending helper
+@onready var asc_desc = "ASC"
+func _asc_desc(cntrl) -> String:
+	if cntrl.button_pressed == true:
+		var asc_desc = "DESC"
+		return asc_desc
+	else:
+		var asc_desc = "ASC"
+		return asc_desc
+
+	
 func _on_btn_create_table_pressed() -> void:
 	var table = {
 		"id" : {"data_type":"int", "primary_key": true, "not_null": true, "auto_increment": true},
@@ -46,5 +59,5 @@ where score > " + scoreLine.text)
 		print(i)
 
 func _on_btn_sort_scores_pressed() -> void:
-	database.query("select score, name from players ORDER BY score DESC")
+	database.query("select score, name from players ORDER BY score " + _asc_desc(sortAsc))
 	print(database.query_result[0])

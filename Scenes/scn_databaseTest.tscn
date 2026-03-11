@@ -64,6 +64,10 @@ layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Sort Scores"
 
+[node name="check_sortAsc" type="CheckButton" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Asc/Desc"
+
 [node name="GridContainer2" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
 layout_mode = 2
 columns = 2
