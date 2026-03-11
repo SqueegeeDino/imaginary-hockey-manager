@@ -60,4 +60,5 @@ where score > " + scoreLine.text)
 
 func _on_btn_sort_scores_pressed() -> void:
 	database.query("select score, name from players ORDER BY score " + _asc_desc(sortAsc))
-	print(database.query_result[0])
+	for i in database.query_result:
+		print(i)
