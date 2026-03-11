@@ -86,6 +86,24 @@ text = "Score"
 [node name="score" type="LineEdit" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
 layout_mode = 2
 
+[node name="lbl_position" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "Position"
+
+[node name="position" type="OptionButton" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+layout_mode = 2
+item_count = 5
+popup/item_0/text = "Center"
+popup/item_0/id = 1
+popup/item_1/text = "Left Wing"
+popup/item_1/id = 2
+popup/item_2/text = "Right Wing"
+popup/item_2/id = 3
+popup/item_3/text = "Left Defense"
+popup/item_3/id = 4
+popup/item_4/text = "Right Defense"
+popup/item_4/id = 5
+
 [node name="Backdrop" type="Sprite2D" parent="."]
 scale = Vector2(1.2513021, 1.0566406)
 texture = ExtResource("1_r6m8f")
