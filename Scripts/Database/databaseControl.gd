@@ -38,8 +38,8 @@ func _on_btn_update_data_pressed() -> void:
 func _on_btn_delete_data_pressed() -> void:
 	database.delete_rows("players", "id > 0")
 
-func _on_btn_custom_select_pressed() -> void:
-	database.query("select score from players
+func _on_btn_custom_select_pressed() -> void: # Join two tables together, and print their data
+	database.query("select * from players
 JOIN playerInfo on playerInfo.id = players.playerInfoID
 where score > " + scoreLine.text)
 	for i in database.query_result:
