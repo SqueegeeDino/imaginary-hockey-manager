@@ -12,7 +12,7 @@ func _pick_player_name(name_type: int) -> String:
 	
 	# Safety clamp name typing so bad input doesn't crash generation
 	var idx: int = clamp(name_type, 0, names.size() -1)
-	return names[idx] # "Sam's short" is a nice default for now
+	return names[idx]
 
 ## Player Information
 # Generator for stats

@@ -39,10 +39,10 @@ layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Insert Data"
 
-[node name="btn_selectData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+[node name="btn_insertRandom" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
-text = "Select Data"
+text = "Insert Random"
 
 [node name="btn_updateData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
@@ -54,19 +54,9 @@ layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Delete Data"
 
-[node name="btn_customSelect" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+[node name="VSeperator2" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
 layout_mode = 2
-theme = ExtResource("1_tl1bn")
-text = "Custom Select"
-
-[node name="btn_sortScores" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
-layout_mode = 2
-theme = ExtResource("1_tl1bn")
-text = "Sort Scores"
-
-[node name="check_sortAsc" type="CheckButton" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
-layout_mode = 2
-text = "Asc/Desc"
+theme_override_constants/separation = 25
 
 [node name="GridContainer2" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
 layout_mode = 2
@@ -79,12 +69,13 @@ text = "Name"
 [node name="name" type="LineEdit" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
 layout_mode = 2
 
-[node name="lbl_score" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+[node name="lbl_age" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
 layout_mode = 2
-text = "Score"
+text = "Age"
 
-[node name="score" type="LineEdit" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+[node name="age" type="LineEdit" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
 layout_mode = 2
+text = "18"
 
 [node name="lbl_position" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
 layout_mode = 2
@@ -104,32 +95,37 @@ popup/item_3/id = 4
 popup/item_4/text = "Right Defense"
 popup/item_4/id = 5
 
+[node name="VSeperator" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="GridContainer3" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="btn_selectData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
+layout_mode = 2
+theme = ExtResource("1_tl1bn")
+text = "Select Data"
+
+[node name="btn_customSelect" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
+layout_mode = 2
+theme = ExtResource("1_tl1bn")
+text = "Custom Select"
+
+[node name="btn_sortAges" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
+layout_mode = 2
+theme = ExtResource("1_tl1bn")
+text = "Sort Ages"
+
+[node name="check_sortAsc" type="CheckButton" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "Asc/Desc"
+
+[node name="GridContainer4" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+layout_mode = 2
+
 [node name="Backdrop" type="Sprite2D" parent="."]
-scale = Vector2(1.2513021, 1.0566406)
-texture = ExtResource("1_r6m8f")
-centered = false
-
-[node name="Backdrop2" type="Sprite2D" parent="."]
-scale = Vector2(1.2513021, 1.0566406)
-texture = ExtResource("1_r6m8f")
-centered = false
-
-[node name="Backdrop3" type="Sprite2D" parent="."]
-scale = Vector2(1.2513021, 1.0566406)
-texture = ExtResource("1_r6m8f")
-centered = false
-
-[node name="Backdrop4" type="Sprite2D" parent="."]
-scale = Vector2(1.2513021, 1.0566406)
-texture = ExtResource("1_r6m8f")
-centered = false
-
-[node name="Backdrop5" type="Sprite2D" parent="."]
-scale = Vector2(1.2513021, 1.0566406)
-texture = ExtResource("1_r6m8f")
-centered = false
-
-[node name="Backdrop6" type="Sprite2D" parent="."]
 scale = Vector2(1.2513021, 1.0566406)
 texture = ExtResource("1_r6m8f")
 centered = false
@@ -139,8 +135,9 @@ position = Vector2(962, 540)
 
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_createTable" to="CanvasLayer/Control" method="_on_btn_create_table_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_insertData" to="CanvasLayer/Control" method="_on_btn_insert_data_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_selectData" to="CanvasLayer/Control" method="_on_btn_select_data_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_insertRandom" to="CanvasLayer/Control" method="_on_btn_insert_random_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_updateData" to="CanvasLayer/Control" method="_on_btn_update_data_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_deleteData" to="CanvasLayer/Control" method="_on_btn_delete_data_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_customSelect" to="CanvasLayer/Control" method="_on_btn_custom_select_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_sortScores" to="CanvasLayer/Control" method="_on_btn_sort_scores_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_selectData" to="CanvasLayer/Control" method="_on_btn_select_data_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_customSelect" to="CanvasLayer/Control" method="_on_btn_custom_select_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_sortAges" to="CanvasLayer/Control" method="_on_btn_sort_ages_pressed"]
