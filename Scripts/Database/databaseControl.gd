@@ -33,17 +33,18 @@ func _on_btn_create_table_pressed() -> void:
 	print("Table created")
 
 func _on_btn_insert_data_pressed() -> void:
-	print("Score: ", int(ui_scoreLine.text))
+	print("Position Index: ", ui_position.selected)
+	print("Actual Position #: ", ui_position.selected + 1)
 	var data = {
 		"name" : ui_nameLine.text,
 		"score" : int(ui_scoreLine.text),
-		"position" : ui_position.get_index()
+		"position" : ui_position.selected  + 1
 	}
 	
 	database.insert_row("players", data)
 
 func _on_btn_select_data_pressed() -> void:
-	print(database.select_rows("players", "id > 0", ["*"]))
+	print(database.select_rows("players", "player_id > 0", ["*"]))
 
 func _on_btn_update_data_pressed() -> void:
 	database.update_rows("players", "name = '" + ui_nameLine.text + "'", {"score": int(ui_scoreLine.text)})
