@@ -12,7 +12,7 @@ var playerRow: PackedScene = preload("res://Scenes/scn_playerRow_db.tscn")
 @onready var scrollBox = $VBox_playerList/panel_playerList/MarginContainer/ScrollContainer/VBoxContainer
 
 # Runtime modifiable variables
-@onready var sortOrder: String = "ASC"
+@onready var sortOrder: String = "DESC"
 @onready var sortType: String = "player_id"
 
 class GeneratorConfig:
@@ -44,16 +44,15 @@ func _ready():
 	_generate_list()
 
 ## Helpers
-# Ascendin and descending helper
-
+# Ascending and descending helper
 func _asc_desc() -> void:
 	if sortOrder == "ASC":
 		sortOrder = "DESC"
 	else:
 		sortOrder = "ASC"
-
-func _change_sort_type(sortType) -> void:
-	sortType
+# Helper for changing the column we are sorting by
+func _change_sort_type(newType) -> void:
+	sortType = newType
 
 # Stat value randomization
 # Clamp from 0 to 1
@@ -138,7 +137,6 @@ func _on_btn_select_data_pressed() -> void:
 
 func _on_btn_update_data_pressed() -> void:
 	database.update_rows("players", "name = '" + ui_nameLine.text + "'", {"age": int(ui_ageLine.text)})
-	pass # Replace with function body.
 
 func _on_btn_delete_data_pressed() -> void:
 	database.delete_rows("players", "id > 0")
@@ -155,6 +153,15 @@ func _on_btn_sort_ages_pressed() -> void:
 	database.query("select age, name from players ORDER BY age " + sortOrder)
 	for i in database.query_result:
 		print(i)
+
+func _on_btn_sortType_pressed(sType: String) -> void: # Change sort type to the desired column
+	_change_sort_type(sType)
+	print("Sort type: ", sType)
+	_generate_list()
+
+func _on_check_sortAsc_pressed():
+	_asc_desc()
+	_generate_list()
 
 func _on_btn_insert_random_pressed(cfg: GeneratorConfig = GeneratorConfig.new()) -> void:
 	var player_name: String = generator._pick_player_name(1) # Will be changable to allow for name variance
@@ -205,7 +212,7 @@ func _generate_list() -> void:
 	for child in scrollBox.get_children():
 		child.queue_free()
 	
-	database.query("SELECT * FROM players ORDER BY " + sortType + sortOrder)
+	database.query("SELECT * FROM players ORDER BY " + sortType)
 	# This works because the database.query() function returns an array of dictionaries.
 	# We iterate through each individual dictionary, then snag the desired values using their keys
 	# Keys are the headers of the columns

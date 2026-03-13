@@ -193,5 +193,6 @@ position = Vector2(962, 540)
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_deleteData" to="CanvasLayer/Control" method="_on_btn_delete_data_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_selectData" to="CanvasLayer/Control" method="_on_btn_select_data_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_customSelect" to="CanvasLayer/Control" method="_on_btn_custom_select_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_sortStars" to="CanvasLayer/Control" method="_on_btn_sort_ages_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_sortID" to="CanvasLayer/Control" method="_on_btn_sort_ages_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_sortStars" to="CanvasLayer/Control" method="_on_btn_sortType_pressed" binds= ["stars"]]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_sortID" to="CanvasLayer/Control" method="_on_btn_sortType_pressed" binds= ["player_id"]]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/check_sortAsc" to="CanvasLayer/Control" method="_on_check_sortAsc_pressed"]
