@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://gkwlc5r3mujf"]
+
+[ext_resource type="Script" uid="uid://rj3w8wx08xrd" path="res://Scenes/scn_player_row_db.gd" id="1_yr1ac"]
+[ext_resource type="Texture2D" uid="uid://bdao7iawdljdh" path="res://Resources/Images/Icons/star_colored_black.png" id="2_j88pw"]
+[ext_resource type="Texture2D" uid="uid://dumqxf6dup1ps" path="res://Resources/Images/Icons/star_colored_half_y-b.png" id="3_vwg7u"]
+[ext_resource type="Texture2D" uid="uid://oiqo8d2hx063" path="res://Resources/Images/Icons/star_colored_gold.svg" id="4_t5b8x"]
+[ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/Theme/new_theme.tres" id="5_io46c"]
+
+[node name="_playerRow" type="Button"]
+custom_minimum_size = Vector2(450, 30)
+offset_right = 450.0
+offset_bottom = 30.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+script = ExtResource("1_yr1ac")
+star_empty = ExtResource("2_j88pw")
+star_half = ExtResource("3_vwg7u")
+star_full = ExtResource("4_t5b8x")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="_playerLabel_name" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+theme = ExtResource("5_io46c")
+theme_type_variation = &"HeaderMedium"
+theme_override_font_sizes/font_size = 24
+text = "Pierre-Luc Letourneau-Leblond De le fuck me this is too long"
+clip_text = true
+max_lines_visible = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="starContainer" type="HBoxContainer" parent="HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 25.725)
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="icon_star1" type="TextureRect" parent="HBoxContainer/MarginContainer/starContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_j88pw")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="icon_star2" type="TextureRect" parent="HBoxContainer/MarginContainer/starContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_j88pw")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="icon_star3" type="TextureRect" parent="HBoxContainer/MarginContainer/starContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_j88pw")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="icon_star4" type="TextureRect" parent="HBoxContainer/MarginContainer/starContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_j88pw")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="icon_star5" type="TextureRect" parent="HBoxContainer/MarginContainer/starContainer"]
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_j88pw")
+expand_mode = 2
+stretch_mode = 5

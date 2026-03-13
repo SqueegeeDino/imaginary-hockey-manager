@@ -3,11 +3,13 @@ extends Control
 var database: SQLite
 var generator:= PlayerGenerator.new()
 var rng := RandomNumberGenerator.new()
+var playerRow: PackedScene = preload("res://Scenes/scn_playerRow_db.tscn")
 
 @onready var ui_nameLine = $PanelContainer/HBoxContainer/GridContainer2/name
 @onready var ui_ageLine = $PanelContainer/HBoxContainer/GridContainer2/age
 @onready var ui_sortAsc = $PanelContainer/HBoxContainer/GridContainer3/check_sortAsc
 @onready var ui_position = $PanelContainer/HBoxContainer/GridContainer2/position
+@onready var scrollBox = $VBox_playerList/panel_playerList/MarginContainer/ScrollContainer/VBoxContainer
 
 class GeneratorConfig:
 	var stat_min: int = 1
@@ -35,6 +37,7 @@ func _ready():
 	database = SQLite.new()
 	database.path = "res://data.db"
 	database.open_db()
+	_generate_list()
 
 ## Helpers
 # Ascendin and descending helper
@@ -127,7 +130,6 @@ func _on_btn_sort_ages_pressed() -> void:
 		print(i)
 
 func _on_btn_insert_random_pressed(cfg: GeneratorConfig = GeneratorConfig.new()) -> void:
-	print("Inserting Random")
 	var player_name: String = generator._pick_player_name(1) # Will be changable to allow for name variance
 	var a: int = rng.randi_range(18,42)
 	var pos: int = rng.randi_range(1,5)
@@ -152,4 +154,22 @@ func _on_btn_insert_random_pressed(cfg: GeneratorConfig = GeneratorConfig.new())
 	}
 	
 	database.insert_row("players", data)
-	print("Done")
+
+## Interface Specific Functions (make rows, move items, show UI, etc.)
+# Interface helpers
+# Instantiate function
+func _instantiate_playerRow(id, playerName) -> void:
+	var row = playerRow.instantiate() # Spawn the row, set it as a local variable
+	row.awake(id, playerName) # Run the CUSTOM awake function that will apply the player ID to this item
+	scrollBox.add_child(row) # Add this row as a child of the scrollcontainer VBox
+
+# Main Interface
+# Spawn list of existing values in database
+func _generate_list() -> void:
+	print("Generate list start")
+	database.query("SELECT player_id, name FROM players")
+	for i in database.query_result:
+		var id: int = i["player_id"]
+		var playerName: String = i["name"]
+		_instantiate_playerRow(id,playerName) # Instantiate the row with the database player_id saved internally
+	print("Generate list end")
