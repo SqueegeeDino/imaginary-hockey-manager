@@ -1,92 +1,105 @@
-[gd_scene load_steps=4 format=3 uid="uid://b35ae70avkaf0"]
+[gd_scene load_steps=6 format=3 uid="uid://b35ae70avkaf0"]
 
 [ext_resource type="Texture2D" uid="uid://tjx6oyl62grw" path="res://Resources/Images/ChatGPT Image Feb 26, 2026, 04_18_43 PM.png" id="1_r6m8f"]
 [ext_resource type="Script" uid="uid://dnmu1hwlyq586" path="res://Scripts/Database/databaseControl.gd" id="1_t40ar"]
 [ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/Theme/new_theme.tres" id="1_tl1bn"]
+[ext_resource type="Script" uid="uid://bcrgmvdqval1u" path="res://Scripts/control_interface.gd" id="2_wrap3"]
+[ext_resource type="PackedScene" uid="uid://gkwlc5r3mujf" path="res://Scenes/Prefabs/scn_playerRow_db.tscn" id="3_qfip3"]
 
 [node name="Control" type="Node"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="CanvasLayer"]
+[node name="Control_Database" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_t40ar")
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+[node name="Control_Interface" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("scrollBox")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_wrap3")
+scrollBox = NodePath("VBox_playerList/panel_playerList/MarginContainer/ScrollContainer/VBoxContainer")
+playerRow = ExtResource("3_qfip3")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control_Interface"]
 layout_mode = 0
 offset_left = 27.0
 offset_top = 24.0
-offset_right = 101.0
-offset_bottom = 64.0
+offset_right = 911.0
+offset_bottom = 131.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control_Interface/PanelContainer"]
 layout_mode = 2
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="btn_createTable" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+[node name="btn_createTable" type="Button" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
+disabled = true
 text = "Create Table"
 
-[node name="btn_insertData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+[node name="btn_insertData" type="Button" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
+disabled = true
 text = "Insert Data"
 
-[node name="btn_insertRandom" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+[node name="btn_insertRandom" type="Button" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Insert Random"
 
-[node name="btn_updateData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+[node name="btn_updateData" type="Button" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Update Data"
 
-[node name="btn_generateList" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+[node name="btn_generateList" type="Button" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Generate list"
 
-[node name="btn_deleteData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+[node name="btn_deleteData" type="Button" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Delete Data"
 
-[node name="VSeperator2" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+[node name="VSeperator2" type="VSeparator" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="GridContainer2" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+[node name="GridContainer2" type="GridContainer" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="lbl_name" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+[node name="lbl_name" type="Label" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer2"]
 layout_mode = 2
 text = "Name"
 
-[node name="name" type="LineEdit" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+[node name="name" type="LineEdit" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer2"]
 layout_mode = 2
 
-[node name="lbl_age" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+[node name="lbl_age" type="Label" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer2"]
 layout_mode = 2
 text = "Age"
 
-[node name="age" type="LineEdit" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+[node name="age" type="LineEdit" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer2"]
 layout_mode = 2
 text = "18"
 
-[node name="lbl_position" type="Label" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+[node name="lbl_position" type="Label" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer2"]
 layout_mode = 2
 text = "Position"
 
-[node name="position" type="OptionButton" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer2"]
+[node name="position" type="OptionButton" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer2"]
 layout_mode = 2
 item_count = 5
 popup/item_0/text = "Center"
@@ -100,46 +113,47 @@ popup/item_3/id = 4
 popup/item_4/text = "Right Defense"
 popup/item_4/id = 5
 
-[node name="VSeperator" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+[node name="VSeperator" type="VSeparator" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="GridContainer3" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+[node name="GridContainer3" type="GridContainer" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer"]
 layout_mode = 2
 columns = 2
 
-[node name="btn_selectData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
+[node name="btn_selectData" type="Button" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer3"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Select Data"
 
-[node name="btn_customSelect" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
+[node name="btn_customSelect" type="Button" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer3"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Custom Select"
 
-[node name="btn_sortStars" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
+[node name="btn_sortStars" type="Button" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer3"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Sort Stars"
 
-[node name="btn_sortID" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
+[node name="btn_sortID" type="Button" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer3"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Sort ID"
 
-[node name="check_sortAsc" type="CheckButton" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
+[node name="check_sortAsc" type="CheckButton" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer3"]
 layout_mode = 2
+disabled = true
 text = "Asc/Desc"
 
-[node name="VSeperator3" type="VSeparator" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+[node name="VSeperator3" type="VSeparator" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 25
 
-[node name="GridContainer4" type="GridContainer" parent="CanvasLayer/Control/PanelContainer/HBoxContainer"]
+[node name="GridContainer4" type="GridContainer" parent="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="VBox_playerList" type="VBoxContainer" parent="CanvasLayer/Control"]
+[node name="VBox_playerList" type="VBoxContainer" parent="CanvasLayer/Control_Interface"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -150,20 +164,20 @@ offset_right = 1851.0
 offset_bottom = 1061.0
 grow_horizontal = 0
 
-[node name="panel_listHeader" type="PanelContainer" parent="CanvasLayer/Control/VBox_playerList"]
+[node name="panel_listHeader" type="PanelContainer" parent="CanvasLayer/Control_Interface/VBox_playerList"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/VBox_playerList/panel_listHeader"]
+[node name="Label" type="Label" parent="CanvasLayer/Control_Interface/VBox_playerList/panel_listHeader"]
 layout_mode = 2
 theme_type_variation = &"LabelHeader"
 text = "Player List"
 horizontal_alignment = 1
 
-[node name="panel_playerList" type="Panel" parent="CanvasLayer/Control/VBox_playerList"]
+[node name="panel_playerList" type="Panel" parent="CanvasLayer/Control_Interface/VBox_playerList"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/VBox_playerList/panel_playerList"]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control_Interface/VBox_playerList/panel_playerList"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -171,10 +185,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control/VBox_playerList/panel_playerList/MarginContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Control_Interface/VBox_playerList/panel_playerList/MarginContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/VBox_playerList/panel_playerList/MarginContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control_Interface/VBox_playerList/panel_playerList/MarginContainer/ScrollContainer"]
 layout_mode = 2
 
 [node name="Backdrop" type="Sprite2D" parent="."]
@@ -185,14 +199,14 @@ centered = false
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(962, 540)
 
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_createTable" to="CanvasLayer/Control" method="_on_btn_create_table_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_insertData" to="CanvasLayer/Control" method="_on_btn_insert_data_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_insertRandom" to="CanvasLayer/Control" method="_on_btn_insert_random_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_updateData" to="CanvasLayer/Control" method="_on_btn_update_data_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_generateList" to="CanvasLayer/Control" method="_generate_list"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_deleteData" to="CanvasLayer/Control" method="_on_btn_delete_data_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_selectData" to="CanvasLayer/Control" method="_on_btn_select_data_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_customSelect" to="CanvasLayer/Control" method="_on_btn_custom_select_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_sortStars" to="CanvasLayer/Control" method="_on_btn_sortType_pressed" binds= ["stars"]]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_sortID" to="CanvasLayer/Control" method="_on_btn_sortType_pressed" binds= ["player_id"]]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/check_sortAsc" to="CanvasLayer/Control" method="_on_check_sortAsc_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer/btn_createTable" to="CanvasLayer/Control_Database" method="_on_btn_create_table_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer/btn_insertData" to="CanvasLayer/Control_Database" method="_on_btn_insert_data_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer/btn_insertRandom" to="CanvasLayer/Control_Database" method="_on_btn_insert_random_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer/btn_updateData" to="CanvasLayer/Control_Database" method="_on_btn_update_data_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer/btn_generateList" to="CanvasLayer/Control_Database" method="_generate_list"]
+[connection signal="pressed" from="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer/btn_deleteData" to="CanvasLayer/Control_Database" method="_on_btn_delete_data_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer3/btn_selectData" to="CanvasLayer/Control_Database" method="_on_btn_select_data_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer3/btn_customSelect" to="CanvasLayer/Control_Database" method="_on_btn_custom_select_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer3/btn_sortStars" to="CanvasLayer/Control_Database" method="_on_btn_sortType_pressed" binds= ["stars"]]
+[connection signal="pressed" from="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer3/btn_sortID" to="CanvasLayer/Control_Database" method="_on_btn_sortType_pressed" binds= ["player_id"]]
+[connection signal="pressed" from="CanvasLayer/Control_Interface/PanelContainer/HBoxContainer/GridContainer3/check_sortAsc" to="CanvasLayer/Control_Database" method="_on_check_sortAsc_pressed"]

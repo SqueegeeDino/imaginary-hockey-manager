@@ -3,7 +3,7 @@ extends Control
 var database: SQLite
 var generator:= PlayerGenerator.new()
 var rng := RandomNumberGenerator.new()
-var playerRow: PackedScene = preload("res://Scenes/scn_playerRow_db.tscn")
+var playerRow: PackedScene = preload("res://Scenes/Prefabs/scn_playerRow_db.tscn")
 
 @onready var ui_nameLine = $PanelContainer/HBoxContainer/GridContainer2/name
 @onready var ui_ageLine = $PanelContainer/HBoxContainer/GridContainer2/age
@@ -41,7 +41,7 @@ func _ready():
 	database = SQLite.new()
 	database.path = "res://data.db"
 	database.open_db()
-	_generate_list()
+	_on_create_tables()
 
 ## Helpers
 # Ascending and descending helper
@@ -107,8 +107,10 @@ func _average_array(data: Array) -> float:
 		sum += float(value)
 	return sum / data.size()
 ## Main Internal Functions
-func _on_btn_create_table_pressed() -> void:
-	var table = {
+func _on_create_tables() -> void:
+	# Create the "players" table
+	var table = {}
+	table = {
 		"player_id" : {"data_type":"int", "primary_key": true, "not_null": true, "auto_increment": true},
 		"name" : {"data_type":"text"},
 		"age" : {"data_type":"int"},
@@ -118,10 +120,17 @@ func _on_btn_create_table_pressed() -> void:
 		"offense" : {"data_type":"real"},
 		"defense" : {"data_type":"real"},
 		"overall" : {"data_type":"real"},
+		"stars" : {"data_type":"int"},
 	}
-
 	database.create_table("players", table)
-	print("Table created")
+	print("Table created: players")
+	# Create "playerPosition" table
+	table = {
+		"id" : {"data_type":"int","primary_key": true, "not_null":true},
+		"position" : {"data_type":"text"}
+	}
+	database.create_table("playerPosition", table)
+	print("Table created: playerPosition")
 
 func _on_btn_insert_data_pressed() -> void:
 	var data = {
@@ -157,11 +166,11 @@ func _on_btn_sort_ages_pressed() -> void:
 func _on_btn_sortType_pressed(sType: String) -> void: # Change sort type to the desired column
 	_change_sort_type(sType)
 	print("Sort type: ", sType)
-	_generate_list()
+	generate_list()
 
 func _on_check_sortAsc_pressed():
 	_asc_desc()
-	_generate_list()
+	generate_list()
 
 func _on_btn_insert_random_pressed(cfg: GeneratorConfig = GeneratorConfig.new()) -> void:
 	var player_name: String = generator._pick_player_name(1) # Will be changable to allow for name variance
@@ -195,7 +204,7 @@ func _on_btn_insert_random_pressed(cfg: GeneratorConfig = GeneratorConfig.new())
 	}
 	
 	database.insert_row("players", data)
-	_generate_list()
+	generate_list()
 
 ## Interface Specific Functions (make rows, move items, show UI, etc.)
 # Interface helpers
@@ -207,7 +216,7 @@ func _instantiate_playerRow(player: PlayerProfile) -> void:
 
 # Main Interface
 # Spawn list of existing values in database
-func _generate_list() -> void:
+func generate_list() -> void:
 	# Wipe the list
 	for child in scrollBox.get_children():
 		child.queue_free()
