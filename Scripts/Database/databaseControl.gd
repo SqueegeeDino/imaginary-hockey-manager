@@ -179,9 +179,11 @@ func _on_btn_insert_random_pressed(cfg: GeneratorConfig = GeneratorConfig.new())
 		"offense" : o,
 		"defense" : d,
 		"overall" : ovr,
+		"stars" : stars,
 	}
 	
 	database.insert_row("players", data)
+	_generate_list()
 
 ## Interface Specific Functions (make rows, move items, show UI, etc.)
 # Interface helpers
@@ -194,12 +196,14 @@ func _instantiate_playerRow(player: PlayerProfile) -> void:
 # Main Interface
 # Spawn list of existing values in database
 func _generate_list() -> void:
-	database.query("SELECT player_id, name, overall FROM players")
+	# Wipe the list
+	for child in scrollBox.get_children():
+		child.queue_free()
+	
+	database.query("SELECT * FROM players")
 	# This works because the database.query() function returns an array of dictionaries.
 	# We iterate through each individual dictionary, then snag the desired values using their keys
 	# Keys are the headers of the columns
-	print(database.query_result)
-	print(database.query_result.size())
 	if database.query_result.size() == 0:
 		print("Empty database")
 		return
@@ -208,6 +212,6 @@ func _generate_list() -> void:
 		player.id = i["player_id"]
 		player.display_name = i["name"]
 		player.overall = i["overall"]
-		print("DBCntrl: ",player.id)
+		player.starRating = i["stars"]
 		# Instantiate the row with the passed through info saved internally
 		_instantiate_playerRow(player) #!Remember to update _instantiate_playerRow if you add new parameters to pass through!
