@@ -6,9 +6,7 @@ var database = SQLite
 @export var scrollBox: VBoxContainer
 @export var playerRow: PackedScene
 
-# Runtime modifiable variables
-@onready var sortOrder: String = "DESC"
-@onready var sortType: String = "player_id"
+
 
 func _ready() -> void:
 	database = SQLite.new()
@@ -22,6 +20,7 @@ func _instantiate_playerRow(player: PlayerProfile) -> void:
 	var row = playerRow.instantiate() # Spawn the row, set it as a local variable
 	row.awake(player) # Run the CUSTOM awake function that will apply the player ID to this item
 	scrollBox.add_child(row) # Add this row as a child of the scrollcontainer VBox
+
 
 ## Primary Functions
 # Main Interface

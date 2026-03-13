@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b35ae70avkaf0"]
+[gd_scene load_steps=7 format=3 uid="uid://b35ae70avkaf0"]
 
 [ext_resource type="Texture2D" uid="uid://tjx6oyl62grw" path="res://Resources/Images/ChatGPT Image Feb 26, 2026, 04_18_43 PM.png" id="1_r6m8f"]
 [ext_resource type="Script" uid="uid://dnmu1hwlyq586" path="res://Scripts/Database/databaseControl.gd" id="1_t40ar"]
 [ext_resource type="Theme" uid="uid://dehkb5i0pkd8y" path="res://Resources/Theme/new_theme.tres" id="1_tl1bn"]
 [ext_resource type="Script" uid="uid://bcrgmvdqval1u" path="res://Scripts/control_interface.gd" id="2_wrap3"]
 [ext_resource type="PackedScene" uid="uid://gkwlc5r3mujf" path="res://Scenes/Prefabs/scn_playerRow_db.tscn" id="3_qfip3"]
+[ext_resource type="Script" uid="uid://eyxv2eo503rp" path="res://Scripts/v_box_player_list.gd" id="5_aphbr"]
 
 [node name="Control" type="Node"]
 
@@ -125,6 +126,7 @@ offset_top = 27.0
 offset_right = 1851.0
 offset_bottom = 1061.0
 grow_horizontal = 0
+script = ExtResource("5_aphbr")
 
 [node name="panel_listHeader" type="PanelContainer" parent="CanvasLayer/Control_Interface/VBox_playerList"]
 layout_mode = 2
@@ -134,6 +136,19 @@ layout_mode = 2
 theme_type_variation = &"LabelHeader"
 text = "Player List"
 horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control_Interface/VBox_playerList"]
+layout_mode = 2
+
+[node name="btn_Name" type="Button" parent="CanvasLayer/Control_Interface/VBox_playerList/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Name"
+
+[node name="btn_Stars" type="Button" parent="CanvasLayer/Control_Interface/VBox_playerList/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Overall Rating"
 
 [node name="panel_playerList" type="Panel" parent="CanvasLayer/Control_Interface/VBox_playerList"]
 layout_mode = 2

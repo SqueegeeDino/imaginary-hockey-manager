@@ -1,0 +1,86 @@
+[gd_scene load_steps=3 format=3 uid="uid://b86urp1s48dc6"]
+
+[ext_resource type="Texture2D" uid="uid://tjx6oyl62grw" path="res://Resources/Images/ChatGPT Image Feb 26, 2026, 04_18_43 PM.png" id="1_hxyfl"]
+[ext_resource type="Script" uid="uid://cxhqwvjpo2fh0" path="res://Scripts/control_main_menu.gd" id="2_htux5"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="Backdrop" type="Sprite2D" parent="."]
+scale = Vector2(1.248698, 1.0546875)
+texture = ExtResource("1_hxyfl")
+centered = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control_MainMenu" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("2_htux5")
+
+[node name="Center_MainMenu" type="CenterContainer" parent="CanvasLayer/Control_MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -281.5
+offset_top = -129.5
+offset_right = 281.5
+offset_bottom = 129.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control_MainMenu/Center_MainMenu"]
+layout_mode = 2
+
+[node name="Panel_Title" type="PanelContainer" parent="CanvasLayer/Control_MainMenu/Center_MainMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control_MainMenu/Center_MainMenu/VBoxContainer/Panel_Title"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="CanvasLayer/Control_MainMenu/Center_MainMenu/VBoxContainer/Panel_Title/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"Title"
+text = "Imaginary Hockey"
+
+[node name="Panel_Buttons" type="PanelContainer" parent="CanvasLayer/Control_MainMenu/Center_MainMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control_MainMenu/Center_MainMenu/VBoxContainer/Panel_Buttons"]
+layout_mode = 2
+
+[node name="VBox_Buttons" type="VBoxContainer" parent="CanvasLayer/Control_MainMenu/Center_MainMenu/VBoxContainer/Panel_Buttons/MarginContainer"]
+layout_mode = 2
+
+[node name="Btn_NewGame" type="Button" parent="CanvasLayer/Control_MainMenu/Center_MainMenu/VBoxContainer/Panel_Buttons/MarginContainer/VBox_Buttons"]
+layout_mode = 2
+text = "New Game"
+
+[node name="Btn_LoadGame" type="Button" parent="CanvasLayer/Control_MainMenu/Center_MainMenu/VBoxContainer/Panel_Buttons/MarginContainer/VBox_Buttons"]
+layout_mode = 2
+text = "Load Game"
+
+[node name="Btn_Options" type="Button" parent="CanvasLayer/Control_MainMenu/Center_MainMenu/VBoxContainer/Panel_Buttons/MarginContainer/VBox_Buttons"]
+layout_mode = 2
+text = "Options"
+
+[node name="Btn_Exit" type="Button" parent="CanvasLayer/Control_MainMenu/Center_MainMenu/VBoxContainer/Panel_Buttons/MarginContainer/VBox_Buttons"]
+layout_mode = 2
+theme_type_variation = &"Button_Red"
+text = "Exit"
+
+[connection signal="pressed" from="CanvasLayer/Control_MainMenu/Center_MainMenu/VBoxContainer/Panel_Buttons/MarginContainer/VBox_Buttons/Btn_Exit" to="CanvasLayer/Control_MainMenu" method="_on_btn_exit_pressed"]
