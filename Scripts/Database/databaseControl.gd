@@ -11,6 +11,10 @@ var playerRow: PackedScene = preload("res://Scenes/scn_playerRow_db.tscn")
 @onready var ui_position = $PanelContainer/HBoxContainer/GridContainer2/position
 @onready var scrollBox = $VBox_playerList/panel_playerList/MarginContainer/ScrollContainer/VBoxContainer
 
+# Runtime modifiable variables
+@onready var sortOrder: String = "ASC"
+@onready var sortType: String = "player_id"
+
 class GeneratorConfig:
 	var stat_min: int = 1
 	var stat_max: int = 99
@@ -41,14 +45,15 @@ func _ready():
 
 ## Helpers
 # Ascendin and descending helper
-@onready var asc_desc: String = "ASC"
-func _asc_desc(cntrl) -> String:
-	if cntrl.button_pressed == true:
-		asc_desc = "DESC"
-		return asc_desc
+
+func _asc_desc() -> void:
+	if sortOrder == "ASC":
+		sortOrder = "DESC"
 	else:
-		asc_desc = "ASC"
-		return asc_desc
+		sortOrder = "ASC"
+
+func _change_sort_type(sortType) -> void:
+	sortType
 
 # Stat value randomization
 # Clamp from 0 to 1
@@ -147,7 +152,7 @@ func _on_btn_custom_select_pressed() -> void: # Join two tables together, and pr
 		print(i)
 
 func _on_btn_sort_ages_pressed() -> void:
-	database.query("select age, name from players ORDER BY age " + _asc_desc(ui_sortAsc))
+	database.query("select age, name from players ORDER BY age " + sortOrder)
 	for i in database.query_result:
 		print(i)
 
@@ -200,7 +205,7 @@ func _generate_list() -> void:
 	for child in scrollBox.get_children():
 		child.queue_free()
 	
-	database.query("SELECT * FROM players")
+	database.query("SELECT * FROM players ORDER BY " + sortType + sortOrder)
 	# This works because the database.query() function returns an array of dictionaries.
 	# We iterate through each individual dictionary, then snag the desired values using their keys
 	# Keys are the headers of the columns

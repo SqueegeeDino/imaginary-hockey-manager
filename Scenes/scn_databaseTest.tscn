@@ -118,10 +118,15 @@ layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Custom Select"
 
-[node name="btn_sortAges" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
+[node name="btn_sortStars" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
-text = "Sort Ages"
+text = "Sort Stars"
+
+[node name="btn_sortID" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
+layout_mode = 2
+theme = ExtResource("1_tl1bn")
+text = "Sort ID"
 
 [node name="check_sortAsc" type="CheckButton" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3"]
 layout_mode = 2
@@ -188,4 +193,5 @@ position = Vector2(962, 540)
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_deleteData" to="CanvasLayer/Control" method="_on_btn_delete_data_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_selectData" to="CanvasLayer/Control" method="_on_btn_select_data_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_customSelect" to="CanvasLayer/Control" method="_on_btn_custom_select_pressed"]
-[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_sortAges" to="CanvasLayer/Control" method="_on_btn_sort_ages_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_sortStars" to="CanvasLayer/Control" method="_on_btn_sort_ages_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_sortID" to="CanvasLayer/Control" method="_on_btn_sort_ages_pressed"]

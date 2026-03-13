@@ -22,7 +22,6 @@ func _init() -> void:
 func awake(p: PlayerProfile) -> void:
 	player = p
 
-
 func _set_stars(star_units: int) -> void:
 	# Clamp to valid range (0–10)
 	var units: int = clamp(star_units, 0, 10)
@@ -45,3 +44,4 @@ func _ready():
 	else:
 		print("Null PlayerProfile @ scn_player_row_db.gd: _ready():")
 		print("Are you in the right scene?")
+	mouse_filter = Control.MOUSE_FILTER_STOP
