@@ -13,16 +13,21 @@ extends Button
 	$HBoxContainer/MarginContainer/starContainer/icon_star4,
 	$HBoxContainer/MarginContainer/starContainer/icon_star5
 ]
-var player_id: int
-var player_name: String
+
+var player: PlayerProfile = null
+
 func _init() -> void:
 	pass
 
-func awake(playerID, playerName) -> void:
-	print("Passed ID: ", playerID)
-	player_id = playerID
-	player_name = playerName
+func awake(p: PlayerProfile) -> void:
+	player = p
+	print("Passed ID: ", player.id )
 
 
 func _ready():
-	label_name.text = player_name
+	if player != null:
+		label_name.text = player.display_name
+	else:
+		print("Null PlayerProfile @ scn_player_row_db.gd: _ready():")
+		print("Are you in the right scene?")
+	pass

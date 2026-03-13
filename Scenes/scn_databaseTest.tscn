@@ -49,6 +49,11 @@ layout_mode = 2
 theme = ExtResource("1_tl1bn")
 text = "Update Data"
 
+[node name="btn_generateList" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
+layout_mode = 2
+theme = ExtResource("1_tl1bn")
+text = "Generate list"
+
 [node name="btn_deleteData" type="Button" parent="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer"]
 layout_mode = 2
 theme = ExtResource("1_tl1bn")
@@ -179,6 +184,7 @@ position = Vector2(962, 540)
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_insertData" to="CanvasLayer/Control" method="_on_btn_insert_data_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_insertRandom" to="CanvasLayer/Control" method="_on_btn_insert_random_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_updateData" to="CanvasLayer/Control" method="_on_btn_update_data_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_generateList" to="CanvasLayer/Control" method="_generate_list"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer/btn_deleteData" to="CanvasLayer/Control" method="_on_btn_delete_data_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_selectData" to="CanvasLayer/Control" method="_on_btn_select_data_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/PanelContainer/HBoxContainer/GridContainer3/btn_customSelect" to="CanvasLayer/Control" method="_on_btn_custom_select_pressed"]

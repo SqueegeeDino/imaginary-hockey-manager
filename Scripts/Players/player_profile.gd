@@ -14,18 +14,6 @@ var overall: float
 
 var role: int
 var bestPos: int
-
-func _init(_id: int, _name: String, i: int, p: int, d: int, o: int, r: int, pos: int, over: int, stars: float) -> void:
-	id = _id
-	display_name = _name
-	intelligence = i
-	physical = p
-	defense = d
-	offense = o
-	role = r
-	bestPos = pos
-	starRating = stars
-	overall = over
 	
 
 func to_dict() -> Dictionary:

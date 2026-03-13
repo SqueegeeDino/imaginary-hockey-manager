@@ -186,7 +186,7 @@ func generate_profile(
 		if r > best_posRating:
 			best_posRating = r
 			best_pos = int(pos)
-	return PlayerProfile.new(id, name, i, p, d, o, role, best_pos, ovr, stars)
+	return PlayerProfile.new()
 
 func generate_many(
 	rng: RandomNumberGenerator,

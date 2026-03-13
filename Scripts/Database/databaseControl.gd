@@ -41,13 +41,13 @@ func _ready():
 
 ## Helpers
 # Ascendin and descending helper
-@onready var asc_desc = "ASC"
+@onready var asc_desc: String = "ASC"
 func _asc_desc(cntrl) -> String:
 	if cntrl.button_pressed == true:
-		var asc_desc := "DESC"
+		asc_desc = "DESC"
 		return asc_desc
 	else:
-		var asc_desc := "ASC"
+		asc_desc = "ASC"
 		return asc_desc
 
 # Stat value randomization
@@ -79,7 +79,29 @@ func _sample_stat(cfg: GeneratorConfig, stat_key: String) -> int:
 	x = _clamp01(x)
 
 	return int(round(cfg.stat_min + x * r))
-
+# Takes the overall float value, and returns a "Stars" value, as an int of 1-10
+func _stars_from_overall(overall: float) -> int:
+	# Map 1..99-ish into 1..5 stars.
+	# Tweak thresholds freely.
+	if overall >= 95: return 10
+	if overall >= 90: return 9
+	if overall >= 80: return 8
+	if overall >= 70: return 7
+	if overall >= 60: return 6
+	if overall >= 50: return 5
+	if overall >= 40: return 4
+	if overall >= 30: return 3
+	if overall >= 20: return 2
+	return 1
+# Takes stats as an array, then outputs a single value as their overall
+func _average_array(data: Array) -> float:
+	if data.is_empty(): # Protection against crashing on empty array input
+		printerr("_average_array: Your input data is empty, did you mean that?")
+		return 0.0
+	var sum: float = 0.0
+	for value in data:
+		sum += float(value)
+	return sum / data.size()
 ## Main Internal Functions
 func _on_btn_create_table_pressed() -> void:
 	var table = {
@@ -141,7 +163,12 @@ func _on_btn_insert_random_pressed(cfg: GeneratorConfig = GeneratorConfig.new())
 	var i: int = _sample_stat(cfg, "intelligence")
 	var p: int = _sample_stat(cfg, "physical")
 	var d: int = _sample_stat(cfg, "defense")
-	var o: int = _sample_stat(cfg, "offense") 
+	var o: int = _sample_stat(cfg, "offense")
+	
+	var skillArray: Array[float] = [i,p,d,o]
+	
+	var ovr := _average_array(skillArray) # Get the overall (average) value
+	var stars := _stars_from_overall(ovr)
 
 	var data = {
 		"name" : player_name,
@@ -151,6 +178,7 @@ func _on_btn_insert_random_pressed(cfg: GeneratorConfig = GeneratorConfig.new())
 		"physical" : p,
 		"offense" : o,
 		"defense" : d,
+		"overall" : ovr,
 	}
 	
 	database.insert_row("players", data)
@@ -158,18 +186,28 @@ func _on_btn_insert_random_pressed(cfg: GeneratorConfig = GeneratorConfig.new())
 ## Interface Specific Functions (make rows, move items, show UI, etc.)
 # Interface helpers
 # Instantiate function
-func _instantiate_playerRow(id, playerName) -> void:
+func _instantiate_playerRow(player: PlayerProfile) -> void:
 	var row = playerRow.instantiate() # Spawn the row, set it as a local variable
-	row.awake(id, playerName) # Run the CUSTOM awake function that will apply the player ID to this item
+	row.awake(player) # Run the CUSTOM awake function that will apply the player ID to this item
 	scrollBox.add_child(row) # Add this row as a child of the scrollcontainer VBox
 
 # Main Interface
 # Spawn list of existing values in database
 func _generate_list() -> void:
-	print("Generate list start")
-	database.query("SELECT player_id, name FROM players")
+	database.query("SELECT player_id, name, overall FROM players")
+	# This works because the database.query() function returns an array of dictionaries.
+	# We iterate through each individual dictionary, then snag the desired values using their keys
+	# Keys are the headers of the columns
+	print(database.query_result)
+	print(database.query_result.size())
+	if database.query_result.size() == 0:
+		print("Empty database")
+		return
 	for i in database.query_result:
-		var id: int = i["player_id"]
-		var playerName: String = i["name"]
-		_instantiate_playerRow(id,playerName) # Instantiate the row with the database player_id saved internally
-	print("Generate list end")
+		var player := PlayerProfile.new()
+		player.id = i["player_id"]
+		player.display_name = i["name"]
+		player.overall = i["overall"]
+		print("DBCntrl: ",player.id)
+		# Instantiate the row with the passed through info saved internally
+		_instantiate_playerRow(player) #!Remember to update _instantiate_playerRow if you add new parameters to pass through!
